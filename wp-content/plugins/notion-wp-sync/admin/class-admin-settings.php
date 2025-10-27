@@ -542,8 +542,9 @@ class Notion_Admin_Settings {
             'success_rate' => 0
         );
 
-        // Nombre total de formations synchronisées
-        $stats['total_formations'] = wp_count_posts(Notion_Formation_Post_Type::get_post_type_name())->publish;
+        // Nombre total de formations synchronisées dans la table
+        $formations_table = $wpdb->prefix . 'notion_formations';
+        $stats['total_formations'] = $wpdb->get_var("SELECT COUNT(*) FROM $formations_table");
 
         // Dernière synchronisation
         $table_name = $wpdb->prefix . 'notion_sync_log';
@@ -553,9 +554,9 @@ class Notion_Admin_Settings {
         }
 
         // Taux de succès (dernières 100 opérations)
-        $total_ops = $wpdb->get_var("SELECT COUNT(*) FROM $table_name ORDER BY synced_at DESC LIMIT 100");
+        $total_ops = $wpdb->get_var("SELECT COUNT(*) FROM $table_name LIMIT 100");
         if ($total_ops > 0) {
-            $success_ops = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE status = 'success' ORDER BY synced_at DESC LIMIT 100");
+            $success_ops = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE status = 'success' LIMIT 100");
             $stats['success_rate'] = round(($success_ops / $total_ops) * 100);
         }
 

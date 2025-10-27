@@ -2,21 +2,30 @@
 
 ## Description
 
-Plugin WordPress qui synchronise automatiquement vos formations depuis une base de données Notion vers WordPress.
+Plugin WordPress qui synchronise automatiquement vos formations depuis une base de données Notion et met à jour le contenu de vos pages WordPress existantes.
 
-**Cas d'usage** : Vous gérez votre catalogue de formations dans Notion (votre source unique de vérité), et ce plugin les importe automatiquement dans WordPress avec un formatage Gutenberg professionnel.
+**Cas d'usage** : Vous gérez votre catalogue de formations dans Notion (votre source unique de vérité), et ce plugin met à jour automatiquement le contenu de vos pages WordPress avec un formatage Gutenberg professionnel.
 
 ## Fonctionnalités
 
-- ✅ **Synchronisation bidirectionnelle** : Notion → WordPress
+- ✅ **Synchronisation Notion → Pages WordPress** : Mise à jour automatique du contenu de vos pages
 - ✅ **Génération automatique de blocs Gutenberg** formatés
-- ✅ **Custom Post Type "Formation"** avec taxonomies
+- ✅ **Association flexible** : Associez un identifiant Notion à n'importe quelle page WordPress
 - ✅ **Synchronisation automatique** (cron toutes les heures)
-- ✅ **Synchronisation manuelle** via l'interface admin
+- ✅ **Synchronisation manuelle** via l'interface admin ou depuis la page elle-même
 - ✅ **Gestion des images** (image à la une)
 - ✅ **Logs détaillés** de toutes les opérations
 - ✅ **Interface d'administration** intuitive
 - ✅ **Détection des changements** (ne synchronise que si modifié)
+
+## Fonctionnement
+
+1. Vous créez une **page WordPress normale** (ex: `/formations/facilitation-intelligence-collective/`)
+2. Dans la page, vous associez un **identifiant de formation Notion** (ex: "IC")
+3. Le plugin récupère automatiquement les données de la formation "IC" depuis Notion
+4. Il **met à jour le contenu de votre page** avec ces données formatées en Gutenberg
+
+**Avantage** : Vous gardez le contrôle total de vos URLs et de votre structure de site, le plugin ne fait que mettre à jour le contenu !
 
 ## Structure des fichiers
 
@@ -26,7 +35,7 @@ notion-wp-sync/
 ├── README.md                        # Cette documentation
 ├── includes/
 │   ├── class-notion-api.php        # Gestion de l'API Notion
-│   ├── class-formation-post-type.php # Custom Post Type Formation
+│   ├── class-page-meta-box.php     # Meta box pour associer ID formation
 │   └── class-sync-manager.php      # Gestionnaire de synchronisation
 └── admin/
     ├── class-admin-settings.php    # Interface d'administration
@@ -40,7 +49,7 @@ notion-wp-sync/
 
 ### 1. Activer le plugin
 
-1. Le plugin est déjà dans `wp-content/plugins/notion-wp-sync/`
+1. Le plugin est dans `wp-content/plugins/notion-wp-sync/`
 2. Connectez-vous à votre administration WordPress
 3. Allez dans **Extensions** → **Extensions installées**
 4. Trouvez "Notion WordPress Sync" et cliquez sur **Activer**
@@ -72,6 +81,7 @@ notion-wp-sync/
 3. Collez l'**ID de la base de données**
 4. Cochez **Synchronisation automatique** si souhaité
 5. Cliquez sur **Sauvegarder les paramètres**
+6. Testez en cliquant sur **Synchroniser maintenant**
 
 ## Configuration de votre base Notion
 
@@ -80,7 +90,7 @@ Votre base de données Notion doit contenir les propriétés suivantes :
 | Nom de la propriété | Type Notion | Description | Obligatoire |
 |---------------------|-------------|-------------|-------------|
 | **Nom** | Title | Titre de la formation | ✓ |
-| **Identifiant** | Rich Text | Code court (ex: SKE, FAC) | ✓ |
+| **Identifiant** | Rich Text | Code court (ex: IC, SKE) | ✓ |
 | **Description** | Rich Text | Description courte | |
 | **Durée** | Rich Text | Durée (ex: "2 jours") | |
 | **Prix** | Number | Prix en euros HT | |
@@ -99,8 +109,8 @@ Votre base de données Notion doit contenir les propriétés suivantes :
 Créez une base de données avec ces colonnes, puis ajoutez vos formations :
 
 ```
-Nom: Facilit'Academy - Formation Facilitateur
-Identifiant: FAC
+Nom: Facilit'Academy - Devenez Facilitateur
+Identifiant: IC
 Description: Formation facilitateur gamifiée certifiée Qualiopi
 Durée: 2 jours (14 heures)
 Prix: 2490
@@ -120,19 +130,29 @@ Image: [Upload une image]
 
 ## Utilisation
 
-### Synchronisation manuelle
+### Créer une page de formation
 
+1. Dans WordPress, créez une **nouvelle Page** (Pages → Ajouter)
+2. Donnez-lui un titre et une URL (ex: `/formations/facilitation-intelligence-collective/`)
+3. Dans la sidebar droite, trouvez la meta box **"Synchronisation Notion Formation"**
+4. Entrez l'**Identifiant de formation Notion** (ex: "IC")
+5. Cochez **"Synchronisation automatique"**
+6. Cliquez sur **Publier**
+
+### Première synchronisation
+
+**Option 1 : Depuis la page elle-même**
+- Après avoir associé l'identifiant, cliquez sur **"Synchroniser maintenant"** dans la meta box
+- Le contenu de la page sera immédiatement mis à jour
+
+**Option 2 : Synchronisation globale**
 1. Allez dans **Notion Sync** → **Paramètres**
 2. Cliquez sur **Synchroniser maintenant**
-3. Attendez quelques secondes
-4. Les résultats s'affichent :
-   - X formation(s) créée(s)
-   - X formation(s) mise(s) à jour
-   - X formation(s) ignorée(s)
+3. Toutes les pages avec synchronisation automatique seront mises à jour
 
 ### Synchronisation automatique
 
-Si vous avez activé la synchronisation automatique dans les paramètres, le plugin vérifiera automatiquement toutes les heures s'il y a des changements dans Notion et les appliquera à WordPress.
+Si vous avez activé la synchronisation automatique dans les paramètres, le plugin vérifiera automatiquement toutes les heures s'il y a des changements dans Notion et les appliquera aux pages WordPress qui ont coché "Synchronisation automatique".
 
 ### Consulter les logs
 
@@ -142,33 +162,30 @@ Si vous avez activé la synchronisation automatique dans les paramètres, le plu
    - Date et heure
    - Action effectuée
    - Statut (succès/erreur)
-   - ID Notion
-   - ID du post WordPress
    - Message détaillé
-
-### Voir vos formations
-
-1. Allez dans **Formations** dans le menu WordPress
-2. Vous verrez toutes vos formations synchronisées depuis Notion
-3. Chaque formation a une metabox "Synchronisation Notion" indiquant :
-   - L'ID Notion
-   - La date de dernière synchronisation
-   - Le statut de synchronisation
 
 ## Format du contenu généré
 
 Le plugin génère automatiquement du contenu Gutenberg structuré avec :
 
-- Section d'introduction (fond gris)
-- Informations pratiques (durée, tarif, niveau)
-- Objectifs pédagogiques
-- Public cible
-- Prérequis (fond gris)
-- Programme détaillé
-- Méthodes pédagogiques
-- Section d'inscription (CTA avec boutons)
+- **Section d'introduction** (fond gris) : Titre, description
+- **Informations pratiques** (fond primary) : Durée, tarif, niveau en colonnes
+- **Objectifs pédagogiques** : Liste à puces
+- **Public cible** : Paragraphe
+- **Prérequis** (fond gris) : Paragraphe
+- **Programme détaillé** : Texte formaté
+- **Méthodes pédagogiques** : Paragraphe
+- **Section d'inscription** (CTA avec boutons email et téléphone)
 
-Tous les blocs sont formatés avec les classes CSS de votre thème (`section-grey`, `section-primary`, etc.).
+Tous les blocs utilisent vos classes CSS personnalisées (`section-grey`, `section-primary`, etc.).
+
+## Workflow complet
+
+1. **Dans Notion** : Modifiez la formation "Intelligence Collective" (ID: "IC")
+2. **Attendez la synchronisation automatique** (toutes les heures)
+   - OU cliquez sur "Synchroniser maintenant" dans l'admin
+   - OU cliquez sur "Synchroniser maintenant" dans la meta box de la page
+3. **Résultat** : La page `/formations/facilitation-intelligence-collective/` est automatiquement mise à jour !
 
 ## Personnalisation
 
@@ -184,23 +201,8 @@ Pour personnaliser le template des formations générées, modifiez les méthode
 
 1. Ajoutez une colonne dans votre base Notion
 2. Modifiez `includes/class-notion-api.php` → méthode `parse_formations()`
-3. Ajoutez le champ dans `includes/class-sync-manager.php` → méthode `save_formation_meta()`
-
-### Modifier le mapping des statuts
-
-Dans `includes/class-sync-manager.php`, méthode `get_post_status()`, vous pouvez changer comment les statuts Notion sont convertis en statuts WordPress :
-
-```php
-private function get_post_status($notion_status) {
-    $status_map = array(
-        'Publié' => 'publish',
-        'Brouillon' => 'draft',
-        'En cours' => 'draft',
-        'Archivé' => 'draft',
-    );
-    // Ajoutez vos propres mappings ici
-}
-```
+3. Ajoutez le champ dans `includes/class-sync-manager.php` → méthode `sync_formation()`
+4. Utilisez-le dans `generate_gutenberg_content()`
 
 ## Dépannage
 
@@ -210,6 +212,17 @@ private function get_post_status($notion_status) {
 2. Vérifiez que le Token et l'ID de base sont corrects
 3. Consultez les logs pour voir les erreurs détaillées
 4. Vérifiez que les noms des propriétés Notion correspondent exactement
+
+### La meta box n'apparaît pas sur ma page
+
+La meta box "Synchronisation Notion Formation" n'apparaît que sur les **Pages** WordPress (pas les articles). Vérifiez que vous êtes bien sur une page.
+
+### Le contenu ne se met pas à jour
+
+1. Vérifiez que la case **"Synchronisation automatique"** est cochée dans la meta box
+2. Vérifiez que l'identifiant correspond bien à une formation dans Notion
+3. Lancez une synchronisation manuelle globale depuis **Notion Sync** → **Paramètres**
+4. Consultez les logs pour voir si des erreurs sont survenues
 
 ### Les images ne s'importent pas
 
@@ -226,10 +239,6 @@ Si la synchronisation automatique ne fonctionne pas :
 2. Testez manuellement : `wp cron event run notion_wp_sync_cron`
 3. Utilisez un plugin comme WP Crontrol pour debugger
 
-### Erreur "Missing credentials"
-
-Assurez-vous d'avoir bien sauvegardé le Token API et l'ID de base dans les paramètres du plugin.
-
 ## Sécurité
 
 - ✅ Vérification des nonces sur toutes les actions
@@ -240,10 +249,10 @@ Assurez-vous d'avoir bien sauvegardé le Token API et l'ID de base dans les para
 
 ## Performance
 
-- Le plugin ne synchronise que les formations modifiées (comparaison des timestamps)
+- Le plugin stocke les formations dans une table dédiée pour un accès rapide
+- Ne met à jour que les pages qui ont la synchronisation automatique activée
+- Détection intelligente des changements (ne synchronise que si nécessaire)
 - Pagination automatique pour les grandes bases Notion
-- Cache des résultats API
-- Logs automatiquement limités aux 100 dernières opérations dans les stats
 
 ## Support
 
@@ -258,12 +267,13 @@ Pour toute question ou problème :
 ### Version 1.0.0 - 2025-01-27
 
 - 🎉 Version initiale
-- ✅ Synchronisation Notion → WordPress
+- ✅ Synchronisation Notion → Pages WordPress
 - ✅ Génération automatique de blocs Gutenberg
-- ✅ Custom Post Type Formation
+- ✅ Meta box pour associer identifiant Notion aux pages
 - ✅ Interface d'administration
 - ✅ Logs de synchronisation
 - ✅ Synchronisation automatique (cron)
+- ✅ Synchronisation manuelle globale ou par page
 
 ## Crédits
 

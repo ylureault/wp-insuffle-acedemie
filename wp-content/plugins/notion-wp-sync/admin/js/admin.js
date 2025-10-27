@@ -23,9 +23,8 @@ jQuery(document).ready(function($) {
                     var results = response.data.results;
                     var message = '<div class="notice notice-success"><p><strong>Synchronisation terminée !</strong></p>';
                     message += '<ul>';
-                    message += '<li>' + results.created + ' formation(s) créée(s)</li>';
-                    message += '<li>' + results.updated + ' formation(s) mise(s) à jour</li>';
-                    message += '<li>' + results.skipped + ' formation(s) ignorée(s)</li>';
+                    message += '<li>' + results.synced + ' formation(s) synchronisée(s)</li>';
+                    message += '<li>' + results.updated_pages + ' page(s) mise(s) à jour</li>';
                     if (results.errors > 0) {
                         message += '<li style="color: red;">' + results.errors + ' erreur(s)</li>';
                     }

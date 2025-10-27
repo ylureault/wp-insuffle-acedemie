@@ -53,7 +53,7 @@ class Notion_WP_Sync {
      */
     private function load_dependencies() {
         require_once NOTION_WP_SYNC_PLUGIN_DIR . 'includes/class-notion-api.php';
-        require_once NOTION_WP_SYNC_PLUGIN_DIR . 'includes/class-formation-post-type.php';
+        require_once NOTION_WP_SYNC_PLUGIN_DIR . 'includes/class-page-meta-box.php';
         require_once NOTION_WP_SYNC_PLUGIN_DIR . 'includes/class-sync-manager.php';
         require_once NOTION_WP_SYNC_PLUGIN_DIR . 'admin/class-admin-settings.php';
     }
@@ -78,8 +78,8 @@ class Notion_WP_Sync {
      * Initialise le plugin
      */
     public function init() {
-        // Initialiser le Custom Post Type
-        Notion_Formation_Post_Type::get_instance();
+        // Initialiser les meta boxes pour les pages
+        Notion_Page_Meta_Box::get_instance();
 
         // Initialiser le gestionnaire de synchronisation
         Notion_Sync_Manager::get_instance();
@@ -116,10 +116,6 @@ class Notion_WP_Sync {
         // Créer les tables si nécessaire
         $this->create_tables();
 
-        // Flush rewrite rules
-        Notion_Formation_Post_Type::get_instance();
-        flush_rewrite_rules();
-
         // Planifier le cron de synchronisation
         if (!wp_next_scheduled('notion_wp_sync_cron')) {
             wp_schedule_event(time(), 'hourly', 'notion_wp_sync_cron');
@@ -135,9 +131,6 @@ class Notion_WP_Sync {
         if ($timestamp) {
             wp_unschedule_event($timestamp, 'notion_wp_sync_cron');
         }
-
-        // Flush rewrite rules
-        flush_rewrite_rules();
     }
 
     /**
@@ -147,9 +140,12 @@ class Notion_WP_Sync {
         global $wpdb;
 
         $charset_collate = $wpdb->get_charset_collate();
-        $table_name = $wpdb->prefix . 'notion_sync_log';
 
-        $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
+        // Table pour les logs de synchronisation
+        $log_table = $wpdb->prefix . 'notion_sync_log';
+        $sql_log = "CREATE TABLE IF NOT EXISTS $log_table (
             id mediumint(9) NOT NULL AUTO_INCREMENT,
             notion_id varchar(100) NOT NULL,
             wp_post_id bigint(20) NOT NULL,
@@ -161,9 +157,35 @@ class Notion_WP_Sync {
             KEY notion_id (notion_id),
             KEY wp_post_id (wp_post_id)
         ) $charset_collate;";
+        dbDelta($sql_log);
 
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql);
+        // Table pour stocker les formations Notion
+        $formations_table = $wpdb->prefix . 'notion_formations';
+        $sql_formations = "CREATE TABLE IF NOT EXISTS $formations_table (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            notion_id varchar(100) NOT NULL UNIQUE,
+            identifier varchar(50) NOT NULL,
+            title varchar(255) NOT NULL,
+            description text,
+            duration varchar(100),
+            price decimal(10,2),
+            level varchar(100),
+            category varchar(100),
+            prerequisites text,
+            objectives text,
+            program text,
+            public_target text,
+            methods text,
+            status varchar(50),
+            image_url text,
+            content longtext,
+            last_edited datetime,
+            synced_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+            PRIMARY KEY  (id),
+            UNIQUE KEY identifier (identifier),
+            KEY notion_id (notion_id)
+        ) $charset_collate;";
+        dbDelta($sql_formations);
     }
 }
 

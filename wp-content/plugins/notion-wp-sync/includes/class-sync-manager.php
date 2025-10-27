@@ -40,16 +40,17 @@ class Notion_Sync_Manager {
 
         // Hook AJAX pour la synchronisation manuelle
         add_action('wp_ajax_notion_sync_manual', array($this, 'ajax_manual_sync'));
+        add_action('wp_ajax_notion_sync_single_page', array($this, 'ajax_sync_single_page'));
     }
 
     /**
-     * Lance la synchronisation
+     * Lance la synchronisation complète
      */
     public function run_sync() {
         $formations = $this->notion_api->get_formations();
 
         if (is_wp_error($formations)) {
-            $this->log_sync('error', 0, 0, 'sync_failed', $formations->get_error_message());
+            $this->log_sync('error', '', 0, 'sync_failed', $formations->get_error_message());
             return array(
                 'success' => false,
                 'message' => $formations->get_error_message()
@@ -57,9 +58,8 @@ class Notion_Sync_Manager {
         }
 
         $results = array(
-            'created' => 0,
-            'updated' => 0,
-            'skipped' => 0,
+            'synced' => 0,
+            'updated_pages' => 0,
             'errors' => 0,
         );
 
@@ -67,27 +67,21 @@ class Notion_Sync_Manager {
             $result = $this->sync_formation($formation);
 
             if ($result['success']) {
-                if ($result['action'] === 'created') {
-                    $results['created']++;
-                } elseif ($result['action'] === 'updated') {
-                    $results['updated']++;
-                } else {
-                    $results['skipped']++;
-                }
+                $results['synced']++;
+                $results['updated_pages'] += $result['pages_updated'];
             } else {
                 $results['errors']++;
             }
         }
 
         $message = sprintf(
-            'Synchronisation terminée : %d créées, %d mises à jour, %d ignorées, %d erreurs',
-            $results['created'],
-            $results['updated'],
-            $results['skipped'],
+            'Synchronisation terminée : %d formations synchronisées, %d pages mises à jour, %d erreurs',
+            $results['synced'],
+            $results['updated_pages'],
             $results['errors']
         );
 
-        $this->log_sync('info', 0, 0, 'sync_completed', $message);
+        $this->log_sync('info', '', 0, 'sync_completed', $message);
 
         return array(
             'success' => true,
@@ -100,141 +94,151 @@ class Notion_Sync_Manager {
      * Synchronise une formation
      */
     private function sync_formation($formation) {
+        global $wpdb;
+
+        $table_name = $wpdb->prefix . 'notion_formations';
+
         // Vérifier si la formation existe déjà
-        $existing_post = $this->find_existing_post($formation['notion_id']);
+        $existing = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM $table_name WHERE identifier = %s",
+            $formation['identifier']
+        ));
 
-        if ($existing_post) {
-            // Vérifier si une mise à jour est nécessaire
-            $last_sync = get_post_meta($existing_post->ID, '_last_sync_date', true);
-            $notion_last_edited = strtotime($formation['last_edited']);
+        // Générer le contenu Gutenberg
+        $content = $this->generate_gutenberg_content($formation);
 
-            if ($last_sync && strtotime($last_sync) >= $notion_last_edited) {
-                return array(
-                    'success' => true,
-                    'action' => 'skipped',
-                    'post_id' => $existing_post->ID,
-                    'message' => 'Aucune modification détectée'
-                );
-            }
+        // Préparer les données
+        $data = array(
+            'notion_id' => $formation['notion_id'],
+            'identifier' => $formation['identifier'],
+            'title' => $formation['title'],
+            'description' => $formation['description'],
+            'duration' => $formation['duration'],
+            'price' => $formation['price'],
+            'level' => $formation['level'],
+            'category' => $formation['category'],
+            'prerequisites' => $formation['prerequisites'],
+            'objectives' => $formation['objectives'],
+            'program' => $formation['program'],
+            'public_target' => $formation['public_target'],
+            'methods' => $formation['methods'],
+            'status' => $formation['status'],
+            'image_url' => $formation['image_url'],
+            'content' => $content,
+            'last_edited' => $formation['last_edited'],
+            'synced_at' => current_time('mysql'),
+        );
 
-            // Mettre à jour
-            return $this->update_formation($existing_post->ID, $formation);
+        $format = array('%s', '%s', '%s', '%s', '%s', '%f', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');
+
+        // Insérer ou mettre à jour dans la base
+        if ($existing) {
+            $wpdb->update(
+                $table_name,
+                $data,
+                array('identifier' => $formation['identifier']),
+                $format,
+                array('%s')
+            );
         } else {
-            // Créer
-            return $this->create_formation($formation);
+            $wpdb->insert($table_name, $data, $format);
         }
+
+        // Mettre à jour les pages WordPress associées
+        $pages_updated = $this->update_associated_pages($formation['identifier']);
+
+        $this->log_sync(
+            'success',
+            $formation['notion_id'],
+            0,
+            'formation_synced',
+            sprintf('Formation %s synchronisée, %d page(s) mise(s) à jour', $formation['identifier'], $pages_updated)
+        );
+
+        return array(
+            'success' => true,
+            'pages_updated' => $pages_updated
+        );
     }
 
     /**
-     * Trouve un post existant par Notion ID
+     * Met à jour toutes les pages WordPress associées à une formation
      */
-    private function find_existing_post($notion_id) {
+    private function update_associated_pages($formation_id) {
+        // Trouver toutes les pages qui ont cet identifiant de formation
         $args = array(
-            'post_type' => Notion_Formation_Post_Type::get_post_type_name(),
-            'posts_per_page' => 1,
+            'post_type' => 'page',
+            'posts_per_page' => -1,
             'meta_query' => array(
                 array(
-                    'key' => '_notion_id',
-                    'value' => $notion_id,
+                    'key' => '_notion_formation_id',
+                    'value' => $formation_id,
+                    'compare' => '='
+                ),
+                array(
+                    'key' => '_notion_auto_sync',
+                    'value' => '1',
                     'compare' => '='
                 )
             )
         );
 
         $query = new WP_Query($args);
-        return $query->have_posts() ? $query->posts[0] : null;
+        $updated_count = 0;
+
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $post_id = get_the_ID();
+
+                if ($this->update_page_content($post_id, $formation_id)) {
+                    $updated_count++;
+                }
+            }
+            wp_reset_postdata();
+        }
+
+        return $updated_count;
     }
 
     /**
-     * Crée une nouvelle formation
+     * Met à jour le contenu d'une page WordPress avec les données Notion
      */
-    private function create_formation($formation) {
-        // Générer le contenu Gutenberg
-        $content = $this->generate_gutenberg_content($formation);
+    public function update_page_content($post_id, $formation_id) {
+        global $wpdb;
 
-        $post_data = array(
-            'post_title' => $formation['title'],
-            'post_content' => $content,
-            'post_status' => $this->get_post_status($formation['status']),
-            'post_type' => Notion_Formation_Post_Type::get_post_type_name(),
-            'post_excerpt' => $this->generate_excerpt($formation),
-        );
+        // Récupérer la formation depuis la base
+        $table_name = $wpdb->prefix . 'notion_formations';
+        $formation = $wpdb->get_row($wpdb->prepare(
+            "SELECT * FROM $table_name WHERE identifier = %s",
+            $formation_id
+        ), ARRAY_A);
 
-        $post_id = wp_insert_post($post_data);
-
-        if (is_wp_error($post_id)) {
-            $this->log_sync('error', 0, 0, 'create_failed', $post_id->get_error_message());
-            return array(
-                'success' => false,
-                'message' => $post_id->get_error_message()
-            );
+        if (!$formation) {
+            return false;
         }
 
-        // Sauvegarder les métadonnées
-        $this->save_formation_meta($post_id, $formation);
-
-        // Définir les taxonomies
-        $this->set_formation_taxonomies($post_id, $formation);
-
-        // Télécharger et définir l'image à la une
-        if (!empty($formation['image_url'])) {
-            $this->set_featured_image($post_id, $formation['image_url']);
-        }
-
-        $this->log_sync('success', $formation['notion_id'], $post_id, 'created', 'Formation créée avec succès');
-
-        return array(
-            'success' => true,
-            'action' => 'created',
-            'post_id' => $post_id,
-            'message' => 'Formation créée'
-        );
-    }
-
-    /**
-     * Met à jour une formation existante
-     */
-    private function update_formation($post_id, $formation) {
-        // Générer le contenu Gutenberg
-        $content = $this->generate_gutenberg_content($formation);
-
+        // Mettre à jour le contenu de la page
         $post_data = array(
             'ID' => $post_id,
-            'post_title' => $formation['title'],
-            'post_content' => $content,
-            'post_status' => $this->get_post_status($formation['status']),
-            'post_excerpt' => $this->generate_excerpt($formation),
+            'post_content' => $formation['content'],
         );
 
         $result = wp_update_post($post_data);
 
         if (is_wp_error($result)) {
-            $this->log_sync('error', $formation['notion_id'], $post_id, 'update_failed', $result->get_error_message());
-            return array(
-                'success' => false,
-                'message' => $result->get_error_message()
-            );
+            return false;
         }
 
-        // Mettre à jour les métadonnées
-        $this->save_formation_meta($post_id, $formation);
+        // Mettre à jour la meta de dernière synchronisation
+        update_post_meta($post_id, '_notion_last_sync', current_time('mysql'));
 
-        // Mettre à jour les taxonomies
-        $this->set_formation_taxonomies($post_id, $formation);
-
-        // Mettre à jour l'image à la une
+        // Gérer l'image à la une si elle existe
         if (!empty($formation['image_url'])) {
             $this->set_featured_image($post_id, $formation['image_url']);
         }
 
-        $this->log_sync('success', $formation['notion_id'], $post_id, 'updated', 'Formation mise à jour avec succès');
-
-        return array(
-            'success' => true,
-            'action' => 'updated',
-            'post_id' => $post_id,
-            'message' => 'Formation mise à jour'
-        );
+        return true;
     }
 
     /**
@@ -461,64 +465,19 @@ class Notion_Sync_Manager {
     }
 
     /**
-     * Sauvegarde les métadonnées de la formation
-     */
-    private function save_formation_meta($post_id, $formation) {
-        $meta_fields = array(
-            '_notion_id' => $formation['notion_id'],
-            '_formation_identifier' => $formation['identifier'],
-            '_formation_duration' => $formation['duration'],
-            '_formation_price' => $formation['price'],
-            '_formation_prerequisites' => $formation['prerequisites'],
-            '_formation_objectives' => $formation['objectives'],
-            '_formation_program' => $formation['program'],
-            '_formation_public_target' => $formation['public_target'],
-            '_formation_methods' => $formation['methods'],
-            '_last_sync_date' => current_time('mysql'),
-        );
-
-        foreach ($meta_fields as $key => $value) {
-            update_post_meta($post_id, $key, $value);
-        }
-    }
-
-    /**
-     * Définit les taxonomies de la formation
-     */
-    private function set_formation_taxonomies($post_id, $formation) {
-        // Catégorie
-        if (!empty($formation['category'])) {
-            $category_term = get_term_by('name', $formation['category'], 'formation_category');
-            if (!$category_term) {
-                $category_term = wp_insert_term($formation['category'], 'formation_category');
-                if (!is_wp_error($category_term)) {
-                    $category_term = get_term($category_term['term_id'], 'formation_category');
-                }
-            }
-            if (!is_wp_error($category_term) && $category_term) {
-                wp_set_object_terms($post_id, array($category_term->term_id), 'formation_category');
-            }
-        }
-
-        // Niveau
-        if (!empty($formation['level'])) {
-            $level_term = get_term_by('name', $formation['level'], 'formation_level');
-            if (!$level_term) {
-                $level_term = wp_insert_term($formation['level'], 'formation_level');
-                if (!is_wp_error($level_term)) {
-                    $level_term = get_term($level_term['term_id'], 'formation_level');
-                }
-            }
-            if (!is_wp_error($level_term) && $level_term) {
-                wp_set_object_terms($post_id, array($level_term->term_id), 'formation_level');
-            }
-        }
-    }
-
-    /**
      * Télécharge et définit l'image à la une
      */
     private function set_featured_image($post_id, $image_url) {
+        // Vérifier si l'image est déjà définie
+        $current_thumbnail = get_post_thumbnail_id($post_id);
+        if ($current_thumbnail) {
+            $current_url = wp_get_attachment_url($current_thumbnail);
+            // Si c'est la même URL, ne pas re-télécharger
+            if (strpos($image_url, basename($current_url)) !== false) {
+                return;
+            }
+        }
+
         require_once(ABSPATH . 'wp-admin/includes/media.php');
         require_once(ABSPATH . 'wp-admin/includes/file.php');
         require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -528,20 +487,6 @@ class Notion_Sync_Manager {
         if (!is_wp_error($image_id)) {
             set_post_thumbnail($post_id, $image_id);
         }
-    }
-
-    /**
-     * Convertit le statut Notion en statut WordPress
-     */
-    private function get_post_status($notion_status) {
-        $status_map = array(
-            'Publié' => 'publish',
-            'Brouillon' => 'draft',
-            'En cours' => 'draft',
-            'Archivé' => 'draft',
-        );
-
-        return isset($status_map[$notion_status]) ? $status_map[$notion_status] : 'draft';
     }
 
     /**
@@ -572,7 +517,7 @@ class Notion_Sync_Manager {
     }
 
     /**
-     * AJAX: Synchronisation manuelle
+     * AJAX: Synchronisation manuelle complète
      */
     public function ajax_manual_sync() {
         check_ajax_referer('notion_sync_nonce', 'nonce');
@@ -587,6 +532,30 @@ class Notion_Sync_Manager {
             wp_send_json_success($result);
         } else {
             wp_send_json_error($result);
+        }
+    }
+
+    /**
+     * AJAX: Synchronisation d'une seule page
+     */
+    public function ajax_sync_single_page() {
+        check_ajax_referer('notion_sync_single_page', 'nonce');
+
+        if (!current_user_can('edit_posts')) {
+            wp_send_json_error(array('message' => 'Permissions insuffisantes'));
+        }
+
+        $post_id = intval($_POST['post_id']);
+        $formation_id = get_post_meta($post_id, '_notion_formation_id', true);
+
+        if (empty($formation_id)) {
+            wp_send_json_error(array('message' => 'Aucun identifiant de formation associé'));
+        }
+
+        if ($this->update_page_content($post_id, $formation_id)) {
+            wp_send_json_success(array('message' => 'Page synchronisée avec succès'));
+        } else {
+            wp_send_json_error(array('message' => 'Erreur lors de la synchronisation'));
         }
     }
 }
