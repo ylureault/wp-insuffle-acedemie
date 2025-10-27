@@ -347,27 +347,14 @@ if ( ! defined( 'ABSPATH' ) ) {
                         Rejoignez la liste d'attente pour être informé·e en priorité et bénéficier d'un accès anticipé.
                     </p>
 
-                    <div style="margin-bottom: 50px;">
-                        <a href="mailto:contact@insuffle-academie.com?subject=Liste d'attente Manager Facilitateur 2026" class="btn btn-primary" style="font-size: 1.3rem; padding: 22px 60px; margin: 0 10px 15px;">
-                            ✉️ REJOINDRE LA LISTE D'ATTENTE
-                        </a>
-                        <br>
-                        <a href="mailto:contact@insuffle-academie.com?subject=Question sur Manager Facilitateur" class="btn btn-secondary" style="font-size: 1.1rem; padding: 18px 40px; margin: 0 10px;">
-                            💬 POSER UNE QUESTION
-                        </a>
-                    </div>
-
-                    <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 20px; backdrop-filter: blur(10px); max-width: 600px; margin: 0 auto;">
-                        <h4 style="font-size: 1.3rem; margin-bottom: 20px; color: var(--game-gold);">📞 Nous Contacter</h4>
-                        <p style="font-size: 1.1rem; margin-bottom: 10px;">
-                            <strong>Email :</strong> <?php echo esc_html( get_theme_mod( 'insuffle_contact_email', 'contact@insuffle-academie.com' ) ); ?>
-                        </p>
-                        <p style="font-size: 1.1rem; margin-bottom: 10px;">
-                            <strong>Téléphone :</strong> <?php echo esc_html( get_theme_mod( 'insuffle_contact_phone', '+33 9 80 80 89 62' ) ); ?>
-                        </p>
-                        <p style="font-size: 1.1rem;">
-                            <strong>Site Web :</strong> <a href="<?php echo esc_url( get_theme_mod( 'insuffle_website_url', 'https://insuffle-academie.com' ) ); ?>" style="color: var(--game-gold); text-decoration: underline;">insuffle-academie.com</a>
-                        </p>
+                    <!-- Formulaire de contact iframe -->
+                    <div style="width: 100%; max-width: 100%; margin: 0 auto;">
+                        <iframe
+                            src="https://www.insuffle-academie.com/widget.php"
+                            style="width: 100%; height: 800px; border: none; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);"
+                            title="Formulaire de contact Manager Facilitateur"
+                            loading="lazy"
+                        ></iframe>
                     </div>
                 </div>
             </div>
