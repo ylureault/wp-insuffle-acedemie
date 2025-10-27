@@ -55,7 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="nav-container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; flex-wrap: wrap;">
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="nav-logo" style="font-size: 1.3rem; color: var(--light); font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 10px;">
                 <span>🧭</span>
-                <span>MANAGER BOUSSOLE</span>
+                <span>MANAGER FACILITATEUR</span>
             </a>
             <ul class="nav-menu" style="display: flex; list-style: none; gap: 18px; align-items: center; margin: 0; padding: 0; flex-wrap: wrap;">
                 <li><a href="#boussole" style="color: var(--light); text-decoration: none; font-weight: 600; font-size: 0.95rem;">La Boussole 4C</a></li>
@@ -71,17 +71,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <div class="hero-badge">🧭 FORMATION MANAGER BOUSSOLE PAR INSUFFLE ACADÉMIE</div>
+            <div class="hero-badge">🧭 FORMATION MANAGER FACILITATEUR PAR INSUFFLE ACADÉMIE</div>
             <span class="hero-emoji">🧭</span>
-            <h1>MANAGER BOUSSOLE<br>Du Leadership Directif à la Facilitation Transformante</h1>
+            <h1>MANAGER FACILITATEUR<br>Du Leadership Directif à la Facilitation Transformante</h1>
             <p class="hero-subtitle">Orientez sans imposer. Révélez sans contrôler.</p>
             <p class="hero-description">
-                Comme une boussole indique le Nord sans dicter le chemin, le Manager Boussole guide son équipe vers l'autonomie et la performance collective. Maîtrisez les 4 orientations cardinales du management facilitateur avec la Boussole 4C.
+                Passez d'un management qui contrôle à un leadership qui facilite. Apprenez à guider votre équipe vers l'autonomie et la performance collective grâce à la Boussole 4C et la démarche Voir, Désirer, Construire, Transformer.
             </p>
 
             <div class="hero-cta-group">
                 <a href="#contact" class="btn btn-primary">✉️ REJOINDRE LA LISTE D'ATTENTE</a>
-                <a href="#contact" class="btn btn-secondary">📬 ME TENIR INFORMÉ·E</a>
+                <a href="#boussole" class="btn btn-secondary">🧭 DÉCOUVRIR LA BOUSSOLE 4C</a>
             </div>
         </div>
     </div>
@@ -91,9 +91,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section id="annonce" style="background: linear-gradient(135deg, var(--game-blue) 0%, #1976d2 100%); color: var(--light); padding: 60px 0; text-align: center; position: relative; overflow: hidden;">
     <div class="container">
         <div style="position: relative; z-index: 2;">
-            <h2 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 25px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🧭 La Formation Manager Boussole revient en 2026 !</h2>
+            <h2 style="font-size: 2.8rem; font-weight: 900; margin-bottom: 25px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🧭 La Formation Manager Facilitateur revient en 2026 !</h2>
             <p style="font-size: 1.4rem; max-width: 900px; margin: 0 auto 20px; line-height: 1.9; font-weight: 600;">
-                <strong style="color: var(--game-gold);">Insuffle Académie</strong> vous propose cette formation transformante pour développer un leadership collaboratif basé sur la méthode Boussole 4C.
+                <strong style="color: var(--game-gold);">Insuffle Académie</strong> vous propose cette formation transformante pour développer un leadership collaboratif basé sur la Boussole 4C.
             </p>
             <p style="font-size: 1.2rem; max-width: 850px; margin: 0 auto 35px; line-height: 1.8; opacity: 0.95;">
                 Suite à une année de développement et d'amélioration continue, nous relançons cette formation exceptionnelle en <strong>2026</strong>.
@@ -101,9 +101,9 @@ if ( ! defined( 'ABSPATH' ) ) {
             </p>
             <div style="margin-bottom: 35px; padding: 25px; background: rgba(255,255,255,0.15); border-radius: 15px; max-width: 700px; margin-left: auto; margin-right: auto; backdrop-filter: blur(10px);">
                 <p style="font-size: 1.1rem; margin: 0; font-weight: 600;">
-                    ✅ Formation certifiée Qualiopi<br>
-                    ✅ Finançable par OPCO, CPF, Plan de développement<br>
-                    ✅ Pédagogie Tête-Corps-Cœur éprouvée
+                    🧭 Boussole 4C — Le cadre de clarté<br>
+                    🎯 Démarche Voir, Désirer, Construire, Transformer<br>
+                    💪 Pédagogie Tête-Corps-Cœur éprouvée
                 </p>
             </div>
             <a href="#contact" class="btn btn-primary" style="background: white; color: var(--game-blue); font-size: 1.2rem; padding: 18px 45px; box-shadow: 0 8px 30px rgba(255,255,255,0.3);">
@@ -117,65 +117,105 @@ if ( ! defined( 'ABSPATH' ) ) {
 <section id="boussole" style="padding: 100px 0; background: var(--grey);">
     <div class="container">
         <div class="section-subtitle">LA MÉTHODE</div>
-        <h2 class="section-title">La Boussole 4C : Vos 4 Orientations Managériales</h2>
+        <h2 class="section-title">La Boussole 4C — Le Cadre de Clarté</h2>
 
         <div style="max-width: 900px; margin: 0 auto 60px; text-align: center;">
             <p style="font-size: 1.3rem; line-height: 1.9; color: #555;">
-                Comme une boussole indique le Nord sans dicter le chemin, le <strong>Manager Boussole</strong> maîtrise 4 orientations cardinales pour guider son équipe vers l'autonomie et la performance collective.
+                La <strong>Boussole 4C</strong> structure chaque accompagnement. Elle garde les organisations en équilibre entre vision, réalisme et mouvement.
             </p>
         </div>
 
         <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
             <div class="why-card fade-in-up">
-                <span class="why-icon">🧠</span>
-                <h3 class="why-title" style="color: var(--primary);">CLARTÉ (Nord)</h3>
-                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">Donner du sens et une direction claire</p>
-                <ul class="badge-skills">
-                    <li>Définir et communiquer une intention claire</li>
-                    <li>Créer un cadre sécurisant qui libère l'autonomie</li>
-                    <li>Formuler des objectifs inspirants</li>
-                    <li>Transformer la vision en futur désiré collectif</li>
-                    <li>Poser des règles du jeu qui responsabilisent</li>
-                </ul>
+                <span class="why-icon">🧭</span>
+                <h3 class="why-title" style="color: var(--primary);">CAP</h3>
+                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">Quelle direction sert encore le collectif ?</p>
+                <p class="why-description">
+                    <strong>Objectif :</strong> Donner la boussole commune. Clarifier le cap qui guide toutes les décisions et donne du sens à l'action collective.
+                </p>
             </div>
 
             <div class="why-card fade-in-up">
-                <span class="why-icon">🤝</span>
-                <h3 class="why-title" style="color: var(--primary);">COLLABORATION (Est)</h3>
-                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">Faire émerger l'intelligence collective</p>
-                <ul class="badge-skills">
-                    <li>Animer des réunions collaboratives productives</li>
-                    <li>Faciliter la prise de décision collective</li>
-                    <li>Créer les conditions de la co-construction</li>
-                    <li>Gérer les dynamiques de groupe</li>
-                    <li>Développer la sécurité psychologique</li>
-                </ul>
+                <span class="why-icon">🛡️</span>
+                <h3 class="why-title" style="color: var(--primary);">CONTRAINTES</h3>
+                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">Qu'est-ce qu'on refuse de franchir ?</p>
+                <p class="why-description">
+                    <strong>Objectif :</strong> Définir les lignes rouges. Poser les limites claires qui protègent l'intégrité du projet et l'équilibre de l'équipe.
+                </p>
             </div>
 
             <div class="why-card fade-in-up">
-                <span class="why-icon">💪</span>
-                <h3 class="why-title" style="color: var(--primary);">CAPACITATION (Sud)</h3>
-                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">Développer l'autonomie et la confiance</p>
-                <ul class="badge-skills">
-                    <li>Adopter une posture basse qui révèle le potentiel</li>
-                    <li>Pratiquer le questionnement puissant</li>
-                    <li>Déléguer en responsabilisant</li>
-                    <li>Développer la confiance comme socle</li>
-                    <li>Accompagner la montée en compétences</li>
-                </ul>
+                <span class="why-icon">⚡</span>
+                <h3 class="why-title" style="color: var(--primary);">CAPACITÉS</h3>
+                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">De quoi disposons-nous vraiment ?</p>
+                <p class="why-description">
+                    <strong>Objectif :</strong> Identifier les leviers concrets. S'appuyer sur les ressources, compétences et forces réelles à disposition.
+                </p>
             </div>
 
             <div class="why-card fade-in-up">
-                <span class="why-icon">🔄</span>
-                <h3 class="why-title" style="color: var(--primary);">CO-CRÉATION (Ouest)</h3>
-                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">Innover et transformer ensemble</p>
-                <ul class="badge-skills">
-                    <li>Concevoir des ateliers d'innovation efficaces</li>
-                    <li>Faciliter la résolution de problèmes complexes</li>
-                    <li>Accompagner le changement par l'intelligence collective</li>
-                    <li>Transformer les tensions en opportunités</li>
-                    <li>Créer une culture d'amélioration continue</li>
-                </ul>
+                <span class="why-icon">⏱️</span>
+                <h3 class="why-title" style="color: var(--primary);">CADENCE</h3>
+                <p style="margin-bottom: 15px; color: #666; font-weight: 600; font-size: 1.05rem;">À quel rythme décidons-nous ?</p>
+                <p class="why-description">
+                    <strong>Objectif :</strong> Installer la respiration juste. Trouver le tempo qui permet d'avancer sans s'épuiser, de décider sans précipitation.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- La Démarche -->
+<section style="padding: 100px 0; background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%); color: var(--light);">
+    <div class="container">
+        <div class="section-subtitle" style="color: var(--game-gold);">LA DÉMARCHE INSUFFLE</div>
+        <h2 class="section-title" style="color: var(--light);">Voir, Désirer, Construire, Transformer</h2>
+
+        <div style="max-width: 900px; margin: 0 auto 60px; text-align: center;">
+            <p style="font-size: 1.3rem; line-height: 1.9; opacity: 0.95;">
+                C'est la colonne vertébrale d'Insuffle. Une approche vivante, structurée, profondément humaine.
+            </p>
+        </div>
+
+        <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px;">
+            <div class="badge-card fade-in-up" style="background: rgba(156, 39, 176, 0.2); border: 2px solid rgba(255, 215, 0, 0.3);">
+                <div class="badge-header">
+                    <span class="badge-icon">👁️</span>
+                    <h3 class="badge-name">1️⃣ VOIR</h3>
+                </div>
+                <p style="opacity: 0.95; line-height: 1.8;">
+                    Observer le réel sans filtre. Identifier les forces, les tensions, les zones d'ombre. Pas d'audit, pas de diagnostic stérile : une photo lucide. <strong>Parce que ce qu'on nomme, on peut le transformer.</strong>
+                </p>
+            </div>
+
+            <div class="badge-card fade-in-up" style="background: rgba(156, 39, 176, 0.2); border: 2px solid rgba(255, 215, 0, 0.3);">
+                <div class="badge-header">
+                    <span class="badge-icon">✨</span>
+                    <h3 class="badge-name">2️⃣ DÉSIRER</h3>
+                </div>
+                <p style="opacity: 0.95; line-height: 1.8;">
+                    Formuler ensemble la phrase-boussole : ce cap clair, désirable, qui redonne de la direction et de la cohésion. C'est la mise en mots du sens collectif. <strong>Elle devient la référence commune à toutes les décisions.</strong>
+                </p>
+            </div>
+
+            <div class="badge-card fade-in-up" style="background: rgba(156, 39, 176, 0.2); border: 2px solid rgba(255, 215, 0, 0.3);">
+                <div class="badge-header">
+                    <span class="badge-icon">🔨</span>
+                    <h3 class="badge-name">3️⃣ CONSTRUIRE</h3>
+                </div>
+                <p style="opacity: 0.95; line-height: 1.8;">
+                    Transformer cette intention en actions tangibles : micro-expérimentations, projets pilotes, alliances nouvelles. Construire, c'est donner corps au désir. <strong>Pas un plan d'action figé, mais un cadre d'expérimentation lucide.</strong>
+                </p>
+            </div>
+
+            <div class="badge-card fade-in-up" style="background: rgba(156, 39, 176, 0.2); border: 2px solid rgba(255, 215, 0, 0.3);">
+                <div class="badge-header">
+                    <span class="badge-icon">🔄</span>
+                    <h3 class="badge-name">4️⃣ TRANSFORMER</h3>
+                </div>
+                <p style="opacity: 0.95; line-height: 1.8;">
+                    Installer une cadence vivante : apprendre, ajuster, décider. C'est ici que la stratégie devient un mouvement collectif et non un document figé. <strong>La transformation n'est pas un événement, c'est un rythme à vivre.</strong>
+                </p>
             </div>
         </div>
     </div>
@@ -187,7 +227,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="section-subtitle">LES BÉNÉFICES</div>
         <h2 class="section-title">Ce Que Vous Allez Transformer</h2>
         <p class="section-description">
-            La formation Manager Boussole ne vous apprend pas seulement des techniques. Elle transforme votre posture, votre impact et les résultats de votre équipe.
+            La formation Manager Facilitateur ne vous apprend pas seulement des techniques. Elle transforme votre posture, votre impact et les résultats de votre équipe.
         </p>
 
         <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; margin-top: 60px;">
@@ -250,7 +290,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <div style="max-width: 850px; margin: 0 auto 60px; text-align: center;">
             <p style="font-size: 1.2rem; line-height: 1.8; color: rgba(255,255,255,0.9);">
-                La formation suit la méthodologie signature d'Insuffle Académie avec ses <strong>4 Phases : Observer, Désirer, Concevoir, Transformer</strong>.
+                La formation suit la démarche <strong>Voir, Désirer, Construire, Transformer</strong> d'Insuffle Académie.
                 Une approche <strong>Tête-Corps-Cœur</strong> avec <strong>70% de pratique</strong> et 30% de théorie.
             </p>
         </div>
@@ -258,47 +298,47 @@ if ( ! defined( 'ABSPATH' ) ) {
         <!-- JOUR 1 -->
         <div class="badge-card fade-in-up" style="margin-bottom: 40px;">
             <div class="badge-header">
-                <span class="badge-icon">🔴</span>
-                <h3 class="badge-name">JOUR 1 : OBSERVER & DÉSIRER (9h-18h)</h3>
+                <span class="badge-icon">👁️</span>
+                <h3 class="badge-name">JOUR 1 : VOIR (9h-18h)</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Prendre conscience et rêver autrement"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Observer le réel sans filtre"</p>
 
             <ul class="badge-skills">
-                <li><strong>9h00 - 9h45 | Ouverture immersive :</strong> "La Réunion d'Enfer" - Vivez la pire réunion possible (jeu de rôle), débriefing, ice breaker, constitution des triades</li>
-                <li><strong>9h45 - 12h30 | PHASE OBSERVER :</strong> Auto-évaluation profil manager actuel, cartographie forces/axes de développement, évolution du management (contrôleur → facilitateur), atelier "Croyances Limitantes vs Portantes", radiographie de mon équipe</li>
-                <li><strong>14h00 - 17h30 | PHASE DÉSIRER :</strong> "Dans 1 An, Mon Équipe au Top" (projection guidée), écriture créative du futur désiré, concept de Futur Désiré, "La Boussole de Mon Équipe Idéale", transformation d'un problème managérial actuel</li>
+                <li><strong>9h00 - 9h45 | Ouverture immersive :</strong> "La Réunion d'Enfer" - Vivez la pire réunion possible (jeu de rôle), débriefing, ice breaker, constitution des triades de co-développement</li>
+                <li><strong>9h45 - 12h30 | Observer son management actuel :</strong> Auto-évaluation profil manager, cartographie forces/axes de développement, évolution du management (contrôleur → facilitateur), atelier "Croyances Limitantes vs Portantes", radiographie de mon équipe</li>
+                <li><strong>14h00 - 17h30 | Introduction Boussole 4C :</strong> Comprendre les 4 axes (Cap, Contraintes, Capacités, Cadence), mapping de son équipe selon la Boussole, identifier tensions et zones d'ombre, partage en triades</li>
             </ul>
         </div>
 
         <!-- JOUR 2 -->
         <div class="badge-card fade-in-up" style="margin-bottom: 40px;">
             <div class="badge-header">
-                <span class="badge-icon">🟠</span>
-                <h3 class="badge-name">JOUR 2 : CONCEVOIR (9h-18h)</h3>
+                <span class="badge-icon">✨</span>
+                <h3 class="badge-name">JOUR 2 : DÉSIRER & CONSTRUIRE (9h-18h)</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Construire ma boîte à outils de Manager Boussole"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Formuler le cap et concevoir les leviers"</p>
 
             <ul class="badge-skills">
-                <li><strong>9h00 - 10h30 | ORIENTATION NORD - CLARTÉ :</strong> Le Cadre Facilitant (Clarté vs Contrôle), neurosciences de la sécurité psychologique, définir l'intention de mon équipe, transformer objectifs SMART en objectifs inspirants</li>
-                <li><strong>10h45 - 12h30 | ORIENTATION EST - COLLABORATION :</strong> Les 3 modes de décision collective, démonstration live d'animation collaborative, pratique intense (chaque participant anime 10 min), boîte à outils : 10 formats collaboratifs</li>
-                <li><strong>14h00 - 15h30 | ORIENTATION SUD - CAPACITATION :</strong> Posture Basse du Leader (Servant Leadership), le Questionnement Puissant (5 types de questions), jeu de rôle coaching, Matrice de Délégation Responsabilisante</li>
-                <li><strong>15h45 - 17h30 | ORIENTATION OUEST - CO-CRÉATION :</strong> Design Thinking appliqué au Management, atelier "Innover en Équipe", gestion des tensions et conflits (CNV appliquée), synthèse de la Boîte à Outils complète</li>
+                <li><strong>9h00 - 10h30 | DÉSIRER - Formuler la phrase-boussole :</strong> Atelier "Dans 1 An, Mon Équipe au Top" (projection guidée), écriture créative du futur désiré, concept de Futur Désiré, formuler son cap managérial clair et désirable</li>
+                <li><strong>10h45 - 12h30 | CAP - Donner la direction :</strong> Définir et communiquer une intention claire, transformer objectifs en cap inspirant, communiquer une direction claire en 3 minutes, feedback croisé en triade</li>
+                <li><strong>14h00 - 15h30 | CONSTRUIRE - Les outils de facilitation :</strong> Les 3 modes de décision collective, démonstration live d'animation collaborative, 10 formats collaboratifs (World Café, 1-2-4-All...), pratique intense : chaque participant anime 10 min</li>
+                <li><strong>15h45 - 17h30 | CAPACITÉS & CONTRAINTES :</strong> Identifier les leviers concrets de mon équipe, définir les lignes rouges (contraintes non négociables), le Questionnement Puissant, Matrice de Délégation Responsabilisante</li>
             </ul>
         </div>
 
         <!-- JOUR 3 -->
         <div class="badge-card fade-in-up" style="margin-bottom: 40px;">
             <div class="badge-header">
-                <span class="badge-icon">🟢</span>
+                <span class="badge-icon">🔄</span>
                 <h3 class="badge-name">JOUR 3 : TRANSFORMER (9h-18h)</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Passer à l'action et ancrer les nouveaux comportements"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Installer une cadence vivante"</p>
 
             <ul class="badge-skills">
-                <li><strong>9h00 - 10h30 | Intégration & Plan d'Action :</strong> Retours d'expérience des 2 premiers jours, "Mon Plan de Transformation 90 Jours" (3 priorités d'évolution), Stratégie des Petits Pas, identification alliés/obstacles</li>
+                <li><strong>9h00 - 10h30 | CADENCE - Trouver le rythme juste :</strong> À quel rythme décidons-nous ?, installer une respiration collective (rythmes de réunions, décisions, expérimentations), définir ma cadence managériale, Plan de Transformation 90 Jours</li>
                 <li><strong>10h45 - 12h30 | Simulations Intensives :</strong> Chaque participant facilite une réunion complète (30 min) sur scénarios réalistes, le groupe joue l'équipe (avec résistances !), feedback à 360° (pairs + formateur), vidéo pour auto-analyse</li>
                 <li><strong>14h00 - 15h30 | Gérer les Situations Difficiles :</strong> Les 7 Pièges du Manager Facilitateur, gestion des résistances et objections (jeux de rôle), techniques de régulation des dynamiques de groupe, co-développement en triades</li>
-                <li><strong>15h45 - 17h30 | Clôture & Engagement :</strong> Rituel "Ce que j'ai transformé en moi", Contrat d'Expérimentation (mes 3 premiers ateliers à animer), Triades d'Accountability, Remise du Kit Manager Boussole (carnet + 30 cartes + certificat), célébration</li>
+                <li><strong>15h45 - 17h30 | Clôture & Engagement :</strong> Rituel "Ce que j'ai transformé en moi", Contrat d'Expérimentation (mes 3 premiers ateliers à animer), Triades d'Accountability, Remise du Kit Manager Facilitateur, célébration</li>
             </ul>
         </div>
 
@@ -306,13 +346,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="badge-card fade-in-up" style="border: 3px solid var(--game-gold);">
             <div class="badge-header">
                 <span class="badge-icon">🔵</span>
-                <h3 class="badge-name">JOUR +45 : CONSOLIDATION & APPROFONDISSEMENT (9h-17h)</h3>
+                <h3 class="badge-name">JOUR +45 : CONSOLIDATION (9h-17h)</h3>
             </div>
             <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Ancrer durablement la transformation"</p>
 
             <ul class="badge-skills">
                 <li><strong>9h00 - 12h00 | Retours d'Expérience Terrain :</strong> Tour de table "Ce qui a marché, ce qui a coincé", partage des expérimentations réalisées, atelier de Co-développement (3 managers présentent une problématique), ajustements et approfondissements sur mesure</li>
-                <li><strong>14h00 - 17h00 | Consolidation Long Terme :</strong> Masterclass (approfondissement d'une orientation au choix), Plan d'Action 6 Mois, stratégie pour essaimer les pratiques dans l'organisation, rituel de clôture "Ma nouvelle identité managériale", lancement Communauté des Managers Boussoles</li>
+                <li><strong>14h00 - 17h00 | Consolidation Long Terme :</strong> Masterclass (approfondissement d'un axe de la Boussole 4C au choix), Plan d'Action 6 Mois, stratégie pour essaimer les pratiques dans l'organisation, rituel de clôture "Ma nouvelle identité managériale"</li>
             </ul>
         </div>
 
@@ -320,10 +360,10 @@ if ( ! defined( 'ABSPATH' ) ) {
             <h3 style="font-size: 2rem; color: var(--game-gold); margin-bottom: 20px;">🎁 CE QUI EST INCLUS</h3>
             <div style="text-align: left; max-width: 700px; margin: 0 auto;">
                 <ul class="badge-skills" style="font-size: 1.05rem;">
-                    <li>4 jours de formation (3j + J+45) avec formateurs experts</li>
-                    <li>Kit Manager Boussole complet (carnet 80 pages + 30 cartes-outils)</li>
-                    <li>Certificat Manager Boussole officiel</li>
-                    <li>Accès Communauté des Managers Boussoles</li>
+                    <li>4 jours de formation (3j + J+45) avec formateurs experts Insuffle</li>
+                    <li>Kit Manager Facilitateur complet (carnet + 30 cartes-outils)</li>
+                    <li>Certificat Manager Facilitateur officiel</li>
+                    <li>Accès Communauté des Managers Facilitateurs</li>
                     <li>Co-développement mensuel gratuit post-formation</li>
                     <li>Ressources digitales actualisées en continu</li>
                     <li>Support formateurs pendant 6 mois</li>
@@ -338,7 +378,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="final-cta-content">
             <h2 class="final-cta-title">
-                Prêt·e à Devenir<br>Manager Boussole ?
+                Prêt·e à Devenir<br>Manager Facilitateur ?
             </h2>
             <p class="final-cta-description">
                 La formation revient en 2026 avec Insuffle Académie.<br>
@@ -350,7 +390,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <iframe
                     src="https://www.insuffle-academie.com/widget.php"
                     style="width: 100%; height: 800px; border: none; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);"
-                    title="Formulaire de contact Manager Boussole"
+                    title="Formulaire de contact Manager Facilitateur"
                     loading="lazy"
                 ></iframe>
             </div>
@@ -376,7 +416,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="container">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>🧭 MANAGER BOUSSOLE</h3>
+                <h3>🧭 MANAGER FACILITATEUR</h3>
                 <p style="opacity: 0.8; line-height: 1.8;">
                     La formation qui transforme les managers en leaders facilitateurs. Par Insuffle Académie, experts en intelligence collective et leadership transformationnel.
                 </p>
@@ -400,7 +440,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
         <div class="footer-bottom">
-            <p>© <?php echo date('Y'); ?> Insuffle Académie - Tous droits réservés | Certifié Qualiopi</p>
+            <p>© <?php echo date('Y'); ?> Insuffle Académie - Tous droits réservés</p>
         </div>
     </div>
 </footer>
