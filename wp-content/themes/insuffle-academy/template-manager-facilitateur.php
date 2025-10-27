@@ -43,6 +43,78 @@ if ( ! defined( 'ABSPATH' ) ) {
                 font-size: 1.1rem !important;
             }
         }
+
+        /* Grilles 4 colonnes forcées sur desktop */
+        .grid-4-cols {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-4-cols {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .grid-4-cols {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* Programme amélioré */
+        .program-module {
+            margin-bottom: 35px;
+            padding: 30px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 15px;
+            border-left: 4px solid var(--game-gold);
+        }
+
+        .program-module h4 {
+            font-size: 1.3rem;
+            color: var(--game-gold);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .program-module ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .program-module ul li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .program-module ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--game-gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 640px) {
+            .program-module {
+                padding: 20px;
+            }
+            .program-module h4 {
+                font-size: 1.1rem;
+            }
+            .program-module ul li {
+                font-size: 0.95rem;
+                padding-left: 25px;
+            }
+        }
     </style>
 </head>
 
@@ -125,7 +197,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </p>
         </div>
 
-        <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+        <div class="grid-4-cols">
             <div class="why-card fade-in-up">
                 <span class="why-icon">🧭</span>
                 <h3 class="why-title" style="color: var(--primary);">CAP</h3>
@@ -177,7 +249,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </p>
         </div>
 
-        <div class="why-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px;">
+        <div class="grid-4-cols">
             <div class="badge-card fade-in-up" style="background: rgba(156, 39, 176, 0.2); border: 2px solid rgba(255, 215, 0, 0.3);">
                 <div class="badge-header">
                     <span class="badge-icon">👁️</span>
@@ -296,64 +368,173 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
         <!-- JOUR 1 -->
-        <div class="badge-card fade-in-up" style="margin-bottom: 40px;">
-            <div class="badge-header">
+        <div class="badge-card fade-in-up" style="margin-bottom: 50px;">
+            <div class="badge-header" style="margin-bottom: 30px;">
                 <span class="badge-icon">👁️</span>
-                <h3 class="badge-name">JOUR 1 : VOIR (9h-18h)</h3>
+                <h3 class="badge-name" style="font-size: 1.8rem;">JOUR 1 : VOIR</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Observer le réel sans filtre"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 30px; font-size: 1.2rem;">"Observer le réel sans filtre"</p>
 
-            <ul class="badge-skills">
-                <li><strong>9h00 - 9h45 | Ouverture immersive :</strong> "La Réunion d'Enfer" - Vivez la pire réunion possible (jeu de rôle), débriefing, ice breaker, constitution des triades de co-développement</li>
-                <li><strong>9h45 - 12h30 | Observer son management actuel :</strong> Auto-évaluation profil manager, cartographie forces/axes de développement, évolution du management (contrôleur → facilitateur), atelier "Croyances Limitantes vs Portantes", radiographie de mon équipe</li>
-                <li><strong>14h00 - 17h30 | Introduction Boussole 4C :</strong> Comprendre les 4 axes (Cap, Contraintes, Capacités, Cadence), mapping de son équipe selon la Boussole, identifier tensions et zones d'ombre, partage en triades</li>
-            </ul>
+            <div class="program-module">
+                <h4>Ouverture immersive</h4>
+                <ul>
+                    <li>"La Réunion d'Enfer" - Vivez la pire réunion possible (jeu de rôle)</li>
+                    <li>Débriefing collectif et ice breaker</li>
+                    <li>Constitution des triades de co-développement</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>Observer son management actuel</h4>
+                <ul>
+                    <li>Auto-évaluation profil manager</li>
+                    <li>Cartographie forces et axes de développement</li>
+                    <li>Évolution du management : du contrôleur au facilitateur</li>
+                    <li>Atelier "Croyances Limitantes vs Croyances Portantes"</li>
+                    <li>Radiographie de mon équipe</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>Introduction à la Boussole 4C</h4>
+                <ul>
+                    <li>Comprendre les 4 axes : Cap, Contraintes, Capacités, Cadence</li>
+                    <li>Mapping de son équipe selon la Boussole</li>
+                    <li>Identifier tensions et zones d'ombre</li>
+                    <li>Partage en triades</li>
+                </ul>
+            </div>
         </div>
 
         <!-- JOUR 2 -->
-        <div class="badge-card fade-in-up" style="margin-bottom: 40px;">
-            <div class="badge-header">
+        <div class="badge-card fade-in-up" style="margin-bottom: 50px;">
+            <div class="badge-header" style="margin-bottom: 30px;">
                 <span class="badge-icon">✨</span>
-                <h3 class="badge-name">JOUR 2 : DÉSIRER & CONSTRUIRE (9h-18h)</h3>
+                <h3 class="badge-name" style="font-size: 1.8rem;">JOUR 2 : DÉSIRER & CONSTRUIRE</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Formuler le cap et concevoir les leviers"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 30px; font-size: 1.2rem;">"Formuler le cap et concevoir les leviers"</p>
 
-            <ul class="badge-skills">
-                <li><strong>9h00 - 10h30 | DÉSIRER - Formuler la phrase-boussole :</strong> Atelier "Dans 1 An, Mon Équipe au Top" (projection guidée), écriture créative du futur désiré, concept de Futur Désiré, formuler son cap managérial clair et désirable</li>
-                <li><strong>10h45 - 12h30 | CAP - Donner la direction :</strong> Définir et communiquer une intention claire, transformer objectifs en cap inspirant, communiquer une direction claire en 3 minutes, feedback croisé en triade</li>
-                <li><strong>14h00 - 15h30 | CONSTRUIRE - Les outils de facilitation :</strong> Les 3 modes de décision collective, démonstration live d'animation collaborative, 10 formats collaboratifs (World Café, 1-2-4-All...), pratique intense : chaque participant anime 10 min</li>
-                <li><strong>15h45 - 17h30 | CAPACITÉS & CONTRAINTES :</strong> Identifier les leviers concrets de mon équipe, définir les lignes rouges (contraintes non négociables), le Questionnement Puissant, Matrice de Délégation Responsabilisante</li>
-            </ul>
+            <div class="program-module">
+                <h4>DÉSIRER — Formuler la phrase-boussole</h4>
+                <ul>
+                    <li>Atelier "Dans 1 An, Mon Équipe au Top" (projection guidée)</li>
+                    <li>Écriture créative du futur désiré</li>
+                    <li>Concept de Futur Désiré vs objectif</li>
+                    <li>Formuler son cap managérial clair et désirable</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>CAP — Donner la direction</h4>
+                <ul>
+                    <li>Définir et communiquer une intention claire</li>
+                    <li>Transformer objectifs en cap inspirant</li>
+                    <li>Pitch : communiquer une direction en 3 minutes</li>
+                    <li>Feedback croisé en triade</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>CONSTRUIRE — Les outils de facilitation stratégique</h4>
+                <ul>
+                    <li>Les 3 modes de décision collective (autocratique, consensus, consentement)</li>
+                    <li>Démonstration live : faciliter une transformation collective</li>
+                    <li>10 formats de facilitation (World Café, 1-2-4-All, Forum Ouvert...)</li>
+                    <li>Pratique intense : chaque participant facilite 10 min</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>CAPACITÉS & CONTRAINTES</h4>
+                <ul>
+                    <li>Identifier les leviers concrets de mon équipe</li>
+                    <li>Définir les lignes rouges (contraintes non négociables)</li>
+                    <li>Le Questionnement Puissant : 5 types de questions</li>
+                    <li>Matrice de Délégation Responsabilisante</li>
+                </ul>
+            </div>
         </div>
 
         <!-- JOUR 3 -->
-        <div class="badge-card fade-in-up" style="margin-bottom: 40px;">
-            <div class="badge-header">
+        <div class="badge-card fade-in-up" style="margin-bottom: 50px;">
+            <div class="badge-header" style="margin-bottom: 30px;">
                 <span class="badge-icon">🔄</span>
-                <h3 class="badge-name">JOUR 3 : TRANSFORMER (9h-18h)</h3>
+                <h3 class="badge-name" style="font-size: 1.8rem;">JOUR 3 : TRANSFORMER</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Installer une cadence vivante"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 30px; font-size: 1.2rem;">"Installer une cadence vivante"</p>
 
-            <ul class="badge-skills">
-                <li><strong>9h00 - 10h30 | CADENCE - Trouver le rythme juste :</strong> À quel rythme décidons-nous ?, installer une respiration collective (rythmes de réunions, décisions, expérimentations), définir ma cadence managériale, Plan de Transformation 90 Jours</li>
-                <li><strong>10h45 - 12h30 | Simulations Intensives :</strong> Chaque participant facilite une réunion complète (30 min) sur scénarios réalistes, le groupe joue l'équipe (avec résistances !), feedback à 360° (pairs + formateur), vidéo pour auto-analyse</li>
-                <li><strong>14h00 - 15h30 | Gérer les Situations Difficiles :</strong> Les 7 Pièges du Manager Facilitateur, gestion des résistances et objections (jeux de rôle), techniques de régulation des dynamiques de groupe, co-développement en triades</li>
-                <li><strong>15h45 - 17h30 | Clôture & Engagement :</strong> Rituel "Ce que j'ai transformé en moi", Contrat d'Expérimentation (mes 3 premiers ateliers à animer), Triades d'Accountability, Remise du Kit Manager Facilitateur, célébration</li>
-            </ul>
+            <div class="program-module">
+                <h4>CADENCE — Trouver le rythme juste</h4>
+                <ul>
+                    <li>À quel rythme décidons-nous ?</li>
+                    <li>Installer une respiration collective (réunions, décisions, expérimentations)</li>
+                    <li>Définir ma cadence managériale personnelle</li>
+                    <li>Mon Plan de Transformation 90 Jours</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>Simulations Intensives</h4>
+                <ul>
+                    <li>Chaque participant facilite un processus de transformation stratégique (30 min)</li>
+                    <li>Scénarios réalistes avec le groupe jouant l'équipe (résistances incluses !)</li>
+                    <li>Feedback à 360° : pairs + formateur</li>
+                    <li>Vidéo pour auto-analyse</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>Gérer les Situations Difficiles</h4>
+                <ul>
+                    <li>Les 7 Pièges du Manager Facilitateur</li>
+                    <li>Gestion des résistances et objections (jeux de rôle)</li>
+                    <li>Techniques de régulation des dynamiques de groupe</li>
+                    <li>Co-développement en triades sur cas réels</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>Clôture & Engagement</h4>
+                <ul>
+                    <li>Rituel "Ce que j'ai transformé en moi"</li>
+                    <li>Contrat d'Expérimentation : mes 3 premiers processus à faciliter</li>
+                    <li>Formation des Triades d'Accountability</li>
+                    <li>Remise du Kit Manager Facilitateur</li>
+                    <li>Célébration collective</li>
+                </ul>
+            </div>
         </div>
 
         <!-- JOUR +45 -->
-        <div class="badge-card fade-in-up" style="border: 3px solid var(--game-gold);">
-            <div class="badge-header">
+        <div class="badge-card fade-in-up" style="border: 4px solid var(--game-gold); margin-bottom: 50px;">
+            <div class="badge-header" style="margin-bottom: 30px;">
                 <span class="badge-icon">🔵</span>
-                <h3 class="badge-name">JOUR +45 : CONSOLIDATION (9h-17h)</h3>
+                <h3 class="badge-name" style="font-size: 1.8rem;">JOUR +45 : CONSOLIDATION</h3>
             </div>
-            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 20px; font-size: 1.1rem;">"Ancrer durablement la transformation"</p>
+            <p style="font-weight: 600; color: var(--game-gold); margin-bottom: 30px; font-size: 1.2rem;">"Ancrer durablement la transformation"</p>
 
-            <ul class="badge-skills">
-                <li><strong>9h00 - 12h00 | Retours d'Expérience Terrain :</strong> Tour de table "Ce qui a marché, ce qui a coincé", partage des expérimentations réalisées, atelier de Co-développement (3 managers présentent une problématique), ajustements et approfondissements sur mesure</li>
-                <li><strong>14h00 - 17h00 | Consolidation Long Terme :</strong> Masterclass (approfondissement d'un axe de la Boussole 4C au choix), Plan d'Action 6 Mois, stratégie pour essaimer les pratiques dans l'organisation, rituel de clôture "Ma nouvelle identité managériale"</li>
-            </ul>
+            <div class="program-module">
+                <h4>Retours d'Expérience Terrain</h4>
+                <ul>
+                    <li>Tour de table : "Ce qui a marché, ce qui a coincé"</li>
+                    <li>Partage des expérimentations réalisées depuis 45 jours</li>
+                    <li>Atelier de Co-développement : 3 managers présentent une problématique</li>
+                    <li>Analyse collective et résolution collaborative</li>
+                    <li>Ajustements et approfondissements sur mesure</li>
+                </ul>
+            </div>
+
+            <div class="program-module">
+                <h4>Consolidation Long Terme</h4>
+                <ul>
+                    <li>Masterclass : approfondissement d'un axe de la Boussole 4C au choix</li>
+                    <li>Techniques avancées de facilitation de transformation</li>
+                    <li>Mon Plan d'Action 6 Mois</li>
+                    <li>Stratégie pour essaimer les pratiques dans mon organisation</li>
+                    <li>Rituel de clôture : "Ma nouvelle identité managériale"</li>
+                    <li>Accès permanent à la Communauté des Managers Facilitateurs</li>
+                </ul>
+            </div>
         </div>
 
         <div style="text-align: center; margin-top: 60px; padding: 40px; background: rgba(255,255,255,0.1); border-radius: 20px; backdrop-filter: blur(10px);">
