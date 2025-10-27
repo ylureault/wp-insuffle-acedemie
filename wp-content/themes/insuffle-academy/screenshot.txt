@@ -1,0 +1,11 @@
+# Screenshot Placeholder
+
+Un fichier screenshot.png (1200x900px) devrait être ajouté ici pour afficher un aperçu du thème dans l'administration WordPress.
+
+Pour créer un screenshot :
+1. Capturez une vue de la page d'accueil du thème
+2. Redimensionnez à 1200x900 pixels
+3. Enregistrez en PNG
+4. Placez le fichier à la racine du thème : screenshot.png
+
+Ceci est un placeholder temporaire.
