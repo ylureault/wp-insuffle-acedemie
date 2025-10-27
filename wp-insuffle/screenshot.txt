@@ -1,0 +1,13 @@
+Screenshot Placeholder
+======================
+
+Pour un screenshot optimal, veuillez créer une image PNG de 1200x900 pixels
+montrant l'aperçu du thème avec les couleurs Insuffle (#1f3a8b).
+
+Le screenshot doit être nommé "screenshot.png" et placé à la racine du thème.
+
+Recommandations :
+- Format : PNG
+- Dimensions : 1200x900 pixels (ratio 4:3)
+- Afficher : Header, section hero, quelques cartes
+- Couleurs : Utiliser la palette Insuffle (bleu #1f3a8b, jaune #FFD466)
