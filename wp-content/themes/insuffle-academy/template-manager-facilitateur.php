@@ -9,31 +9,30 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+// Force le chargement complet de la page
+get_header();
 ?>
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo( 'charset' ); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php wp_head(); ?>
+<style>
+    /* Override pour cette page spécifique */
+    .site-content {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 
-    <style>
-        /* Override pour cette page spécifique */
-        #page {
-            background: var(--light);
-        }
+    .site-main {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
 
-        .site-content {
-            padding: 0 !important;
-        }
-    </style>
-</head>
+    /* Masquer le header WordPress par défaut pour cette page */
+    body.page-template-template-manager-facilitateur #site-navigation {
+        display: none;
+    }
+</style>
 
-<body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-
-<div id="page" class="site">
+<main id="primary" class="site-main" style="padding: 0; margin: 0;">
 
     <!-- Navigation -->
     <nav style="background: linear-gradient(135deg, var(--primary) 0%, var(--game-purple) 100%); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.2);">
@@ -360,13 +359,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
         </section>
 
-    </div><!-- #content -->
+</main><!-- #primary -->
 
-    <?php get_footer(); ?>
-
-</div><!-- #page -->
-
-<?php wp_footer(); ?>
-
-</body>
-</html>
+<?php get_footer(); ?>
