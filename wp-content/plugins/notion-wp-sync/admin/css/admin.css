@@ -1,0 +1,128 @@
+/* Styles pour l'administration du plugin Notion WordPress Sync */
+
+.notion-sync-dashboard {
+    max-width: 1200px;
+}
+
+.notion-sync-stats,
+.notion-sync-actions,
+.notion-sync-settings,
+.notion-sync-instructions {
+    background: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background: #f0f0f1;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #2271b1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #646970;
+}
+
+#notion-sync-manual {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#notion-sync-manual .dashicons {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+#notion-sync-manual.loading .dashicons {
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.status-badge {
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status-info {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.widefat tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Styles pour les meta boxes */
+.formation-field {
+    margin-bottom: 20px;
+}
+
+.formation-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.formation-field input[type="text"],
+.formation-field input[type="number"],
+.formation-field textarea {
+    width: 100%;
+    padding: 8px;
+}
+
+.formation-field textarea {
+    min-height: 100px;
+}
+
+.sync-info {
+    padding: 10px;
+    background: #f0f0f1;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.sync-info p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.sync-info strong {
+    display: inline-block;
+    width: 100px;
+}
