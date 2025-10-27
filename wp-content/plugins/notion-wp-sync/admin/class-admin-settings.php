@@ -171,6 +171,45 @@ class Notion_Admin_Settings {
                     <div id="sync-result" style="margin-top: 10px;"></div>
                 </div>
 
+                <!-- Liste des formations synchronisées -->
+                <?php
+                global $wpdb;
+                $formations_table = $wpdb->prefix . 'notion_formations';
+                $formations = $wpdb->get_results("SELECT * FROM $formations_table ORDER BY title ASC");
+                ?>
+
+                <?php if (!empty($formations)): ?>
+                <div class="notion-sync-formations">
+                    <h2>Formations synchronisées (<?php echo count($formations); ?>)</h2>
+                    <table class="widefat">
+                        <thead>
+                            <tr>
+                                <th>Identifiant</th>
+                                <th>Nom</th>
+                                <th>Durée</th>
+                                <th>Prix</th>
+                                <th>Niveau</th>
+                                <th>Dernière modif. Notion</th>
+                                <th>Dernière sync</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($formations as $formation): ?>
+                                <tr>
+                                    <td><strong><?php echo esc_html($formation->identifier); ?></strong></td>
+                                    <td><?php echo esc_html($formation->title); ?></td>
+                                    <td><?php echo esc_html($formation->duration ?: '-'); ?></td>
+                                    <td><?php echo $formation->price ? number_format($formation->price, 2) . ' €' : '-'; ?></td>
+                                    <td><?php echo esc_html($formation->level ?: '-'); ?></td>
+                                    <td><?php echo $formation->last_edited ? date_i18n('d/m/Y H:i', strtotime($formation->last_edited)) : '-'; ?></td>
+                                    <td><?php echo date_i18n('d/m/Y H:i', strtotime($formation->synced_at)); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <?php endif; ?>
+
                 <!-- Formulaire de configuration -->
                 <div class="notion-sync-settings">
                     <h2>Configuration de l'API Notion</h2>
@@ -409,6 +448,26 @@ class Notion_Admin_Settings {
 
             .widefat tbody tr:nth-child(even) {
                 background: #f9f9f9;
+            }
+
+            .notion-sync-formations {
+                background: #fff;
+                padding: 20px;
+                margin: 20px 0;
+                border: 1px solid #ccd0d4;
+                box-shadow: 0 1px 1px rgba(0,0,0,.04);
+            }
+
+            .notion-sync-formations table {
+                margin-top: 15px;
+            }
+
+            .notion-sync-formations th {
+                font-weight: 600;
+            }
+
+            .notion-sync-formations td {
+                padding: 10px;
             }
         </style>
         <?php

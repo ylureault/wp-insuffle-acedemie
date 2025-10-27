@@ -56,6 +56,9 @@ class Notion_WP_Sync {
         require_once NOTION_WP_SYNC_PLUGIN_DIR . 'includes/class-page-meta-box.php';
         require_once NOTION_WP_SYNC_PLUGIN_DIR . 'includes/class-sync-manager.php';
         require_once NOTION_WP_SYNC_PLUGIN_DIR . 'admin/class-admin-settings.php';
+
+        // Charger le script de migration pour supprimer l'ancien CPT
+        require_once NOTION_WP_SYNC_PLUGIN_DIR . 'migration-remove-cpt.php';
     }
 
     /**

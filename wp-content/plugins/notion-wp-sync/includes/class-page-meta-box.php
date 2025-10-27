@@ -59,9 +59,20 @@ class Notion_Page_Meta_Box {
 
         // Récupérer la formation depuis la base si un ID est défini
         $formation_info = null;
+        $total_formations = 0;
+        $available_formations = array();
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'notion_formations';
+
+        // Compter le total de formations dans la base
+        $total_formations = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
+
+        // Récupérer toutes les formations disponibles
+        $available_formations = $wpdb->get_results("SELECT identifier, title FROM $table_name ORDER BY title ASC");
+
         if (!empty($formation_id)) {
-            global $wpdb;
-            $table_name = $wpdb->prefix . 'notion_formations';
+            // Chercher la formation spécifique
             $formation_info = $wpdb->get_row($wpdb->prepare(
                 "SELECT * FROM $table_name WHERE identifier = %s",
                 $formation_id
@@ -153,15 +164,57 @@ class Notion_Page_Meta_Box {
                 </button>
             </div>
         <?php elseif (!empty($formation_id)): ?>
-            <div class="notion-sync-info">
+            <div class="notion-sync-info" style="background: #fff3cd; border-left: 3px solid #ffc107;">
                 <p>
                     <span class="notion-sync-status status-inactive">⚠ Formation non trouvée</span>
                 </p>
                 <p class="description">
-                    Aucune formation avec l'identifiant "<?php echo esc_html($formation_id); ?>"
-                    n'a été trouvée dans Notion. Lancez une synchronisation depuis
-                    <a href="<?php echo admin_url('admin.php?page=notion-wp-sync'); ?>">Notion Sync</a>.
+                    <strong>Identifiant recherché :</strong> "<?php echo esc_html($formation_id); ?>"
                 </p>
+                <p class="description">
+                    <strong>Formations en base :</strong> <?php echo intval($total_formations); ?>
+                </p>
+
+                <?php if ($total_formations == 0): ?>
+                    <p class="description" style="color: #d63638;">
+                        ❌ <strong>Aucune formation synchronisée !</strong><br>
+                        Vous devez d'abord lancer une synchronisation depuis Notion.<br>
+                        <a href="<?php echo admin_url('admin.php?page=notion-wp-sync'); ?>" class="button button-primary" style="margin-top: 10px;">
+                            Aller dans Notion Sync
+                        </a>
+                    </p>
+                <?php else: ?>
+                    <p class="description">
+                        La formation avec l'identifiant "<?php echo esc_html($formation_id); ?>" n'existe pas dans votre base Notion.
+                    </p>
+                    <p class="description">
+                        <strong>Vérifiez :</strong>
+                    </p>
+                    <ul style="margin-left: 20px; font-size: 12px;">
+                        <li>L'orthographe exacte de l'identifiant</li>
+                        <li>Que la formation existe bien dans Notion</li>
+                        <li>Que vous avez bien une colonne "Identifiant" dans Notion</li>
+                    </ul>
+                    <p>
+                        <a href="<?php echo admin_url('admin.php?page=notion-wp-sync'); ?>" class="button">
+                            Relancer la synchronisation
+                        </a>
+                    </p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($total_formations > 0 && empty($formation_info)): ?>
+            <div class="notion-sync-info" style="background: #e7f5ff; border-left: 3px solid #2271b1; margin-top: 15px;">
+                <p><strong>Formations disponibles dans Notion :</strong></p>
+                <ul style="margin: 10px 0 0 20px; font-size: 12px; max-height: 150px; overflow-y: auto;">
+                    <?php foreach ($available_formations as $formation): ?>
+                        <li>
+                            <strong><?php echo esc_html($formation->identifier); ?></strong> -
+                            <?php echo esc_html($formation->title); ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
             </div>
         <?php endif; ?>
 
