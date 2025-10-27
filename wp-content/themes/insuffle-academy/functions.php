@@ -203,6 +203,18 @@ function insuffle_academy_widgets_init() {
 add_action( 'widgets_init', 'insuffle_academy_widgets_init' );
 
 /**
+ * Fix for twentig plugin bug - Prevent fatal error in block editor
+ * This is a workaround for a bug in twentig/inc/init.php line 63
+ */
+function insuffle_academy_fix_twentig_bug() {
+    // Remove the buggy twentig hook if it exists
+    if ( has_action( 'enqueue_block_editor_assets', 'twentig_block_editor_assets' ) ) {
+        remove_action( 'enqueue_block_editor_assets', 'twentig_block_editor_assets' );
+    }
+}
+add_action( 'plugins_loaded', 'insuffle_academy_fix_twentig_bug', 1 );
+
+/**
  * Include required files
  */
 require_once INSUFFLE_THEME_DIR . '/inc/customizer.php';
