@@ -20,6 +20,9 @@ require_once INSUFFLE_DIR . '/inc/theme-customizer.php';
 // Block Patterns (Compositions prêtes à l'emploi)
 require_once INSUFFLE_DIR . '/inc/block-patterns.php';
 
+// Page Meta boxes (Hero configurable pour template-formation.php)
+require_once INSUFFLE_DIR . '/inc/page-metaboxes.php';
+
 // =======================
 // SETUP DU THÈME
 // =======================
