@@ -14,43 +14,61 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background: white;
+            background: #8E2183;
             min-width: 280px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             border-radius: 12px;
             padding: 15px 0;
             margin-top: 10px;
             list-style: none !important;
             z-index: 9999;
+            border: 2px solid rgba(255, 212, 102, 0.3);
         }
-        
+
         .nav-menu .menu-item-has-children:hover > .sub-menu {
             display: block;
+            opacity: 1;
+            visibility: visible;
         }
-        
+
         .nav-menu .sub-menu li {
             margin: 0;
             padding: 0;
             list-style: none !important;
         }
-        
+
         .nav-menu .sub-menu li::before,
         .nav-menu .sub-menu li::marker {
             display: none !important;
             content: none !important;
         }
-        
+
         .nav-menu .sub-menu a {
-            color: #8E2183 !important;
-            padding: 12px 25px !important;
+            color: white !important;
+            padding: 12px 25px 12px 45px !important;
             display: block;
             border-left: 3px solid transparent;
+            position: relative;
         }
-        
+
+        .nav-menu .sub-menu a::before {
+            content: "→";
+            position: absolute;
+            left: 20px;
+            color: #FFD466;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
         .nav-menu .sub-menu a:hover {
-            background: #f5f5f5;
+            background: rgba(255, 212, 102, 0.15);
             border-left-color: #FFD466;
-            padding-left: 30px !important;
+            color: #FFD466 !important;
+            padding-left: 50px !important;
+        }
+
+        .nav-menu .sub-menu a:hover::before {
+            transform: translateX(5px);
         }
     </style>
 </head>
@@ -84,8 +102,18 @@
             'walker'         => new Insuffle_Menu_Walker(),
             'fallback_cb'    => 'insuffle_fallback_menu',
         ));
-        ?>
-        
+
+        // Bouton CTA par défaut (paramétrable dans Apparence > Personnaliser > Bouton Menu)
+        $cta_enable = get_theme_mod('insuffle_menu_cta_enable', true);
+        $cta_text = get_theme_mod('insuffle_menu_cta_text', 'Demande de devis');
+        $cta_url = get_theme_mod('insuffle_menu_cta_url', '/#contact');
+
+        if ($cta_enable && $cta_text && $cta_url) : ?>
+            <a href="<?php echo esc_url($cta_url); ?>" class="nav-cta nav-cta-default">
+                <?php echo esc_html($cta_text); ?>
+            </a>
+        <?php endif; ?>
+
         <!-- Bouton hamburger pour mobile -->
         <button class="mobile-menu-toggle" aria-label="Menu mobile" onclick="toggleMobileMenu()">
             <span></span>

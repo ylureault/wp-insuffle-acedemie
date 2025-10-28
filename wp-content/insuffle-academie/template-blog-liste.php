@@ -7,46 +7,30 @@
 get_header(); ?>
 
 <div id="primary" class="content-area page-blog">
-    <!-- Hero Blog -->
-    <section class="blog-hero">
-        <div class="blog-hero-content">
-            <h1 class="blog-hero-title">
-                <?php
-                // Si la page a un titre, l'afficher, sinon "Blog"
-                if (have_posts()) {
-                    the_post();
-                    the_title();
-                    rewind_posts();
-                } else {
-                    echo 'Blog';
-                }
-                ?>
-            </h1>
-            <?php
-            // Afficher l'extrait de la page s'il existe
-            if (have_posts()) {
-                the_post();
-                if (has_excerpt()) {
-                    echo '<p class="blog-hero-subtitle">' . get_the_excerpt() . '</p>';
-                }
-                rewind_posts();
-            }
-            ?>
+    <?php while (have_posts()) : the_post(); ?>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="page-hero-content">
+            <h1 class="page-title"><?php the_title(); ?></h1>
+            <?php if (has_excerpt()) : ?>
+                <div class="page-intro"><?php the_excerpt(); ?></div>
+            <?php endif; ?>
         </div>
     </section>
 
     <!-- Contenu de la page (si du contenu est ajouté) -->
-    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-        <?php if (get_the_content()) : ?>
-            <section class="page-intro-content">
-                <div class="container">
-                    <div class="intro-text">
-                        <?php the_content(); ?>
-                    </div>
+    <?php if (get_the_content()) : ?>
+        <section class="page-intro-content">
+            <div class="container">
+                <div class="intro-text">
+                    <?php the_content(); ?>
                 </div>
-            </section>
-        <?php endif; ?>
-    <?php endwhile; endif; ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php endwhile; // Fin du loop de la page ?>
 
     <!-- Grille d'articles de blog -->
     <section class="blog-section">

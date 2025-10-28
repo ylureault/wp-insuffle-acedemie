@@ -20,6 +20,9 @@ require_once INSUFFLE_DIR . '/inc/theme-customizer.php';
 // Block Patterns (Compositions prêtes à l'emploi)
 require_once INSUFFLE_DIR . '/inc/block-patterns.php';
 
+// Optimisations SEO
+require_once INSUFFLE_DIR . '/inc/seo-optimization.php';
+
 // =======================
 // SETUP DU THÈME
 // =======================

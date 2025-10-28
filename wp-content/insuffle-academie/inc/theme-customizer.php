@@ -14,6 +14,60 @@ if (!defined('ABSPATH')) exit;
 function insuffle_customize_register($wp_customize) {
 
     // ========================================
+    // SECTION : BOUTON CTA MENU
+    // ========================================
+
+    $wp_customize->add_section('insuffle_menu_cta', array(
+        'title'       => 'Bouton Menu (Devis)',
+        'description' => 'Configurez le bouton "Demande de devis" qui apparaît toujours dans le menu',
+        'priority'    => 29,
+    ));
+
+    // Activer/Désactiver le bouton CTA menu
+    $wp_customize->add_setting('insuffle_menu_cta_enable', array(
+        'default'           => true,
+        'sanitize_callback' => 'insuffle_sanitize_checkbox',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('insuffle_menu_cta_enable', array(
+        'label'    => 'Afficher le bouton dans le menu',
+        'section'  => 'insuffle_menu_cta',
+        'type'     => 'checkbox',
+        'priority' => 10,
+    ));
+
+    // Texte du bouton
+    $wp_customize->add_setting('insuffle_menu_cta_text', array(
+        'default'           => 'Demande de devis',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('insuffle_menu_cta_text', array(
+        'label'       => 'Texte du bouton',
+        'description' => 'Le texte affiché sur le bouton jaune',
+        'section'     => 'insuffle_menu_cta',
+        'type'        => 'text',
+        'priority'    => 20,
+    ));
+
+    // URL du bouton
+    $wp_customize->add_setting('insuffle_menu_cta_url', array(
+        'default'           => '/#contact',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control('insuffle_menu_cta_url', array(
+        'label'       => 'Lien du bouton',
+        'description' => 'URL de destination (ex: /#contact, /contact/, tel:+33123456789)',
+        'section'     => 'insuffle_menu_cta',
+        'type'        => 'url',
+        'priority'    => 30,
+    ));
+
+    // ========================================
     // SECTION : CTA FORMATIONS
     // ========================================
 
