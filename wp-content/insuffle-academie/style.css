@@ -122,12 +122,34 @@ img {
     padding: 10px 20px;
     border-radius: 30px;
     font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .nav-menu a.nav-cta:hover {
     background-color: var(--light);
     color: var(--primary) !important;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Bouton CTA par défaut (hors menu WordPress) */
+.nav-cta-default {
+    background-color: var(--secondary);
+    color: var(--primary) !important;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+}
+
+.nav-cta-default:hover {
+    background-color: var(--light);
+    color: var(--primary) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Sous-menu */
@@ -154,30 +176,34 @@ img {
 .nav-menu .sub-menu {
     display: none;
     position: absolute;
-    top: calc(100% + 10px);
+    top: calc(100% + 5px);
     left: 0;
     background: var(--primary);
     min-width: 280px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     border-radius: 12px;
     padding: 15px 0;
+    padding-top: 20px;
     margin: 0;
+    margin-top: -10px;
     list-style: none !important;
     z-index: 9999;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s, transform 0.3s ease;
     pointer-events: none;
     border: 2px solid rgba(255, 212, 102, 0.3);
 }
 
-.nav-menu .menu-item-has-children:hover > .sub-menu {
+.nav-menu .menu-item-has-children:hover > .sub-menu,
+.nav-menu .menu-item-has-children > .sub-menu:hover {
     display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     pointer-events: auto;
+    transition: opacity 0.3s ease, visibility 0s linear 0s, transform 0.3s ease;
 }
 
 .nav-menu .sub-menu li {

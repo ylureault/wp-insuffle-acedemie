@@ -12,20 +12,23 @@
         .nav-menu .sub-menu {
             display: none;
             position: absolute;
-            top: 100%;
+            top: calc(100% + 5px);
             left: 0;
             background: #8E2183;
             min-width: 280px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
             border-radius: 12px;
             padding: 15px 0;
-            margin-top: 10px;
+            padding-top: 20px;
+            margin-top: -10px;
             list-style: none !important;
             z-index: 9999;
             border: 2px solid rgba(255, 212, 102, 0.3);
+            transition: opacity 0.3s ease;
         }
 
-        .nav-menu .menu-item-has-children:hover > .sub-menu {
+        .nav-menu .menu-item-has-children:hover > .sub-menu,
+        .nav-menu .menu-item-has-children > .sub-menu:hover {
             display: block;
             opacity: 1;
             visibility: visible;
