@@ -17,6 +17,9 @@ define('INSUFFLE_URI', get_template_directory_uri());
 // Theme Customizer (CTA Formations paramétrable)
 require_once INSUFFLE_DIR . '/inc/theme-customizer.php';
 
+// Block Patterns (Compositions prêtes à l'emploi)
+require_once INSUFFLE_DIR . '/inc/block-patterns.php';
+
 // =======================
 // SETUP DU THÈME
 // =======================
@@ -640,6 +643,19 @@ function insuffle_fallback_footer_menu() {
     </ul>
     <?php
 }
+
+// =======================
+// MASQUER LE MENU FORMATION DE L'ADMIN
+// =======================
+
+/**
+ * Masque l'onglet "Formations" du menu admin
+ * Note: Les formations sont gérées comme des pages, pas comme custom post type
+ */
+function insuffle_hide_formation_menu() {
+    remove_menu_page('edit.php?post_type=formation');
+}
+add_action('admin_menu', 'insuffle_hide_formation_menu', 999);
 
 // =======================
 // NETTOYAGE DU HEAD
