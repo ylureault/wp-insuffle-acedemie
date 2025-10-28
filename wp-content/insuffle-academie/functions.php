@@ -6,9 +6,16 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('INSUFFLE_VERSION', '3.0.0');
+define('INSUFFLE_VERSION', '3.3');
 define('INSUFFLE_DIR', get_template_directory());
 define('INSUFFLE_URI', get_template_directory_uri());
+
+// =======================
+// CHARGEMENT DES FICHIERS INC
+// =======================
+
+// Theme Customizer (CTA Formations paramétrable)
+require_once INSUFFLE_DIR . '/inc/theme-customizer.php';
 
 // =======================
 // SETUP DU THÈME

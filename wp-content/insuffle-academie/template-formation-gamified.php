@@ -28,4 +28,7 @@ get_header(); ?>
 </div><!-- #primary -->
 
 <?php
+// Afficher le CTA Formations (paramétrable dans Apparence > Personnaliser > CTA Formations)
+insuffle_display_formation_cta();
+
 get_footer();

@@ -798,19 +798,47 @@ h1.page-title {
 </section>
 
 <!-- Call to Action -->
-<?php 
+<?php
+// Déterminer si c'est une page de formation
+$is_formation_page = false;
+$parent_id = wp_get_post_parent_id(get_the_ID());
+
+// Vérifier si le parent est "Formations"
+if ($parent_id) {
+    $parent_slug = get_post_field('post_name', $parent_id);
+    if (stripos($parent_slug, 'formation') !== false) {
+        $is_formation_page = true;
+    }
+}
+
+// Ou si le slug de la page contient "formation"
+if (stripos($post->post_name, 'formation') !== false) {
+    $is_formation_page = true;
+}
+
 // Ne pas afficher le CTA sur certaines pages ou si désactivé
-$exclude_cta_pages = array('mentions-legales', 'conditions-generales', 'accessibilite', 'contact');
-if (!$hide_cta && !in_array($post->post_name, $exclude_cta_pages)) : 
+$exclude_cta_pages = array('mentions-legales', 'conditions-generales', 'accessibilite', 'contact', 'formations');
+
+if (!$hide_cta && !in_array($post->post_name, $exclude_cta_pages)) :
+
+    if ($is_formation_page) {
+        // CTA paramétrable pour les formations
+        insuffle_display_formation_cta();
+    } else {
+        // CTA par défaut pour les autres pages
+        ?>
+        <section class="page-cta">
+            <div class="page-cta-content">
+                <h2>Prêt à transformer votre organisation ?</h2>
+                <p>Découvrez nos formations en facilitation et intelligence collective</p>
+                <a href="<?php echo home_url('/formations'); ?>" class="btn-cta">Voir nos formations</a>
+            </div>
+        </section>
+        <?php
+    }
+
+endif;
 ?>
-<section class="page-cta">
-    <div class="page-cta-content">
-        <h2>Prêt à transformer votre organisation ?</h2>
-        <p>Découvrez nos formations en facilitation et intelligence collective</p>
-        <a href="<?php echo home_url('/formations'); ?>" class="btn-cta">Voir nos formations</a>
-    </div>
-</section>
-<?php endif; ?>
 
 <?php endwhile; ?>
 
