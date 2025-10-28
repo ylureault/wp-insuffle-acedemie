@@ -6,9 +6,16 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('INSUFFLE_VERSION', '3.0.0');
+define('INSUFFLE_VERSION', '3.1.0');
 define('INSUFFLE_DIR', get_template_directory());
 define('INSUFFLE_URI', get_template_directory_uri());
+
+// =======================
+// INCLUDES
+// =======================
+
+// Meta boxes pour les pages (Hero configurable)
+require_once INSUFFLE_DIR . '/inc/page-metaboxes.php';
 
 // =======================
 // SETUP DU THÈME
