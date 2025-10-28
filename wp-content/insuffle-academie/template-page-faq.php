@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page FAQ
+ * Template Name: Pages > FAQ
  * Description: Page pour afficher des questions/réponses (FAQ)
  */
 

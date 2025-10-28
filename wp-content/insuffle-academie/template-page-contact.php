@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Contact
+ * Template Name: Pages > Contact
  * Description: Page de contact avec formulaire et informations
  */
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Avec Sidebar
+ * Template Name: Pages > Avec Sidebar
  * Description: Page avec sidebar à droite
  */
 

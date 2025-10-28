@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Témoignages
+ * Template Name: Pages > Témoignages
  * Description: Page pour afficher des témoignages et avis clients
  */
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Landing
+ * Template Name: Pages > Landing
  * Description: Page d'atterrissage sans header/footer (pour campagnes marketing)
  */
 ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Vidéo
+ * Template Name: Pages > Vidéo
  * Description: Page pour présenter du contenu vidéo ou multimédia
  */
 

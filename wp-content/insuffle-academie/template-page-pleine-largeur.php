@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Pleine Largeur
+ * Template Name: Pages > Pleine Largeur
  * Description: Page sans sidebar, contenu sur toute la largeur
  */
 

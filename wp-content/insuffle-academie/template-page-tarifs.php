@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Tarifs
+ * Template Name: Pages > Tarifs
  * Description: Page pour afficher des tarifs/pricing
  */
 

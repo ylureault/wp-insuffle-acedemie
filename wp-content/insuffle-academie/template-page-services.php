@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Services
+ * Template Name: Pages > Services
  * Description: Page pour présenter les services ou le portfolio
  */
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Sans Hero
+ * Template Name: Pages > Sans Hero
  * Description: Page sans section hero (commence directement par le contenu)
  */
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Équipe
+ * Template Name: Pages > Équipe
  * Description: Page pour présenter l'équipe ou l'organisme
  */
 

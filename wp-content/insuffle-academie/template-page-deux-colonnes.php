@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Page Deux Colonnes
+ * Template Name: Pages > Deux Colonnes
  * Description: Page avec mise en page deux colonnes (50/50)
  */
 
