@@ -75,62 +75,16 @@
         }
         ?>
         
-        <!-- Menu Navigation -->
-        <ul class="nav-menu">
-            <li><a href="<?php echo home_url('/#about'); ?>">Notre approche</a></li>
-            
-            <!-- Menu Formations avec sous-menu -->
-            <li class="menu-item-has-children">
-                <a href="<?php echo home_url('/#formations'); ?>">Formations ▾</a>
-                <ul class="sub-menu">
-                    <?php
-                    // Récupérer les formations
-                    $formations_page = get_page_by_path('formations');
-                    
-                    if ($formations_page) {
-                        // Récupérer les pages enfants de "Formations"
-                        $formations = get_pages(array(
-                            'child_of' => $formations_page->ID,
-                            'parent' => $formations_page->ID,
-                            'sort_column' => 'menu_order, post_title',
-                            'sort_order' => 'ASC'
-                        ));
-                        
-                        if ($formations) {
-                            foreach ($formations as $formation) {
-                                echo '<li><a href="' . get_permalink($formation->ID) . '">' . esc_html($formation->post_title) . '</a></li>';
-                            }
-                        } else {
-                            echo '<li><a href="' . get_permalink($formations_page->ID) . '">Voir toutes les formations</a></li>';
-                        }
-                    } else {
-                        // Si pas de page Formations, chercher toutes les pages avec "formation" dans le titre
-                        $all_pages = get_pages(array(
-                            'sort_column' => 'post_title',
-                            'sort_order' => 'ASC'
-                        ));
-                        
-                        $has_formations = false;
-                        foreach ($all_pages as $page) {
-                            if (stripos($page->post_title, 'formation') !== false && $page->post_parent == 0) {
-                                echo '<li><a href="' . get_permalink($page->ID) . '">' . esc_html($page->post_title) . '</a></li>';
-                                $has_formations = true;
-                            }
-                        }
-                        
-                        if (!$has_formations) {
-                            echo '<li><a href="' . home_url('/#formations') . '">Voir nos formations</a></li>';
-                        }
-                    }
-                    ?>
-                </ul>
-            </li>
-            
-            <li><a href="<?php echo home_url('/blog/'); ?>">Blog</a></li>
-            <li><a href="<?php echo home_url('/#testimonials'); ?>">Témoignages</a></li>
-            <li><a href="<?php echo home_url('/#contact'); ?>">Contact</a></li>
-            <li><a href="<?php echo home_url('/#contact'); ?>" class="nav-cta">Demande de devis</a></li>
-        </ul>
+        <!-- Menu Navigation WordPress -->
+        <?php
+        wp_nav_menu(array(
+            'theme_location' => 'primary',
+            'container'      => false,
+            'menu_class'     => 'nav-menu',
+            'walker'         => new Insuffle_Menu_Walker(),
+            'fallback_cb'    => 'insuffle_fallback_menu',
+        ));
+        ?>
         
         <!-- Bouton hamburger pour mobile -->
         <button class="mobile-menu-toggle" aria-label="Menu mobile" onclick="toggleMobileMenu()">

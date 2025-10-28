@@ -6,9 +6,19 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('INSUFFLE_VERSION', '3.0.0');
+define('INSUFFLE_VERSION', '3.3');
 define('INSUFFLE_DIR', get_template_directory());
 define('INSUFFLE_URI', get_template_directory_uri());
+
+// =======================
+// CHARGEMENT DES FICHIERS INC
+// =======================
+
+// Theme Customizer (CTA Formations paramétrable)
+require_once INSUFFLE_DIR . '/inc/theme-customizer.php';
+
+// Block Patterns (Compositions prêtes à l'emploi)
+require_once INSUFFLE_DIR . '/inc/block-patterns.php';
 
 // =======================
 // SETUP DU THÈME
@@ -95,15 +105,60 @@ function insuffle_custom_block_classes() {
 add_action('admin_head', 'insuffle_custom_block_classes');
 
 // =======================
-// SIDEBAR
+// SIDEBAR & WIDGETS
 // =======================
 
 function insuffle_widgets_init() {
+    // Sidebar Pages
     register_sidebar(array(
         'name'          => 'Sidebar Pages',
         'id'            => 'page-sidebar',
         'description'   => 'Zone de widgets pour les pages',
         'before_widget' => '<div class="sidebar-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
+    ));
+
+    // Footer - Colonne 1
+    register_sidebar(array(
+        'name'          => 'Footer - Colonne 1',
+        'id'            => 'footer-1',
+        'description'   => 'Première colonne du footer (À propos)',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
+    ));
+
+    // Footer - Colonne 2
+    register_sidebar(array(
+        'name'          => 'Footer - Colonne 2',
+        'id'            => 'footer-2',
+        'description'   => 'Deuxième colonne du footer (Navigation)',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
+    ));
+
+    // Footer - Colonne 3
+    register_sidebar(array(
+        'name'          => 'Footer - Colonne 3',
+        'id'            => 'footer-3',
+        'description'   => 'Troisième colonne du footer (Formations)',
+        'before_widget' => '<div class="footer-widget">',
+        'after_widget'  => '</div>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>',
+    ));
+
+    // Footer - Colonne 4
+    register_sidebar(array(
+        'name'          => 'Footer - Colonne 4',
+        'id'            => 'footer-4',
+        'description'   => 'Quatrième colonne du footer (Contact)',
+        'before_widget' => '<div class="footer-widget">',
         'after_widget'  => '</div>',
         'before_title'  => '<h3>',
         'after_title'   => '</h3>',
@@ -501,6 +556,106 @@ function insuffle_formations_shortcode($atts) {
     return insuffle_render_formations_block($attributes);
 }
 add_shortcode('insuffle-formations', 'insuffle_formations_shortcode');
+
+// =======================
+// CUSTOM MENU WALKER - Pour le bouton CTA
+// =======================
+
+class Insuffle_Menu_Walker extends Walker_Nav_Menu {
+    /**
+     * Ajoute la classe 'nav-cta' aux éléments de menu avec la classe CSS 'cta'
+     */
+    function start_el(&$output, $item, $depth = 0, $args = null, $id = 0) {
+        $indent = ($depth) ? str_repeat("\t", $depth) : '';
+
+        $classes = empty($item->classes) ? array() : (array) $item->classes;
+        $classes[] = 'menu-item-' . $item->ID;
+
+        // Vérifier si l'élément a la classe 'cta'
+        $is_cta = in_array('cta', $classes);
+
+        $class_names = join(' ', apply_filters('nav_menu_css_class', array_filter($classes), $item, $args, $depth));
+        $class_names = $class_names ? ' class="' . esc_attr($class_names) . '"' : '';
+
+        $id = apply_filters('nav_menu_item_id', 'menu-item-'. $item->ID, $item, $args, $depth);
+        $id = $id ? ' id="' . esc_attr($id) . '"' : '';
+
+        $output .= $indent . '<li' . $id . $class_names .'>';
+
+        $atts = array();
+        $atts['title']  = ! empty($item->attr_title) ? $item->attr_title : '';
+        $atts['target'] = ! empty($item->target) ? $item->target : '';
+        $atts['rel']    = ! empty($item->xfn) ? $item->xfn : '';
+        $atts['href']   = ! empty($item->url) ? $item->url : '';
+
+        // Ajouter la classe 'nav-cta' aux liens CTA
+        if ($is_cta) {
+            $atts['class'] = 'nav-cta';
+        }
+
+        $atts = apply_filters('nav_menu_link_attributes', $atts, $item, $args, $depth);
+
+        $attributes = '';
+        foreach ($atts as $attr => $value) {
+            if (! empty($value)) {
+                $value = ('href' === $attr) ? esc_url($value) : esc_attr($value);
+                $attributes .= ' ' . $attr . '="' . $value . '"';
+            }
+        }
+
+        $item_output = $args->before;
+        $item_output .= '<a'. $attributes .'>';
+        $item_output .= $args->link_before . apply_filters('the_title', $item->title, $item->ID) . $args->link_after;
+        $item_output .= '</a>';
+        $item_output .= $args->after;
+
+        $output .= apply_filters('walker_nav_menu_start_el', $item_output, $item, $depth, $args);
+    }
+}
+
+/**
+ * Menu de secours si aucun menu n'est configuré
+ */
+function insuffle_fallback_menu() {
+    ?>
+    <ul class="nav-menu">
+        <li><a href="<?php echo home_url('/'); ?>">Accueil</a></li>
+        <li><a href="<?php echo home_url('/#about'); ?>">Notre approche</a></li>
+        <li><a href="<?php echo home_url('/#formations'); ?>">Formations</a></li>
+        <li><a href="<?php echo home_url('/blog/'); ?>">Blog</a></li>
+        <li><a href="<?php echo home_url('/#contact'); ?>">Contact</a></li>
+        <li><a href="<?php echo home_url('/#contact'); ?>" class="nav-cta">Demande de devis</a></li>
+    </ul>
+    <?php
+}
+
+/**
+ * Menu de secours pour le footer
+ */
+function insuffle_fallback_footer_menu() {
+    ?>
+    <ul class="footer-links">
+        <li><a href="<?php echo home_url('/'); ?>">Accueil</a></li>
+        <li><a href="<?php echo home_url('/#about'); ?>">Notre approche</a></li>
+        <li><a href="<?php echo home_url('/#formations'); ?>">Nos formations</a></li>
+        <li><a href="<?php echo home_url('/blog/'); ?>">Blog</a></li>
+        <li><a href="<?php echo home_url('/#contact'); ?>">Contact</a></li>
+    </ul>
+    <?php
+}
+
+// =======================
+// MASQUER LE MENU FORMATION DE L'ADMIN
+// =======================
+
+/**
+ * Masque l'onglet "Formations" du menu admin
+ * Note: Les formations sont gérées comme des pages, pas comme custom post type
+ */
+function insuffle_hide_formation_menu() {
+    remove_menu_page('edit.php?post_type=formation');
+}
+add_action('admin_menu', 'insuffle_hide_formation_menu', 999);
 
 // =======================
 // NETTOYAGE DU HEAD
