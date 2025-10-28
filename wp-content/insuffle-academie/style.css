@@ -944,3 +944,247 @@ footer a:hover {
 .p-1 { padding: 1rem; }
 .p-2 { padding: 2rem; }
 .p-3 { padding: 3rem; }
+
+/* =====================
+   FORMATION GAMIFIÉE - CARDS & SECTIONS
+   ===================== */
+
+/* Card avec effet hover élégant */
+.card-style {
+    background: var(--grey);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    margin-bottom: 2rem;
+    border: 2px solid transparent;
+}
+
+.card-style:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(142, 33, 131, 0.15);
+    border-color: var(--primary);
+}
+
+.card-style h4 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.card-style ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.card-style ul li {
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Card légère avec fond blanc */
+.card-light {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.card-light:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+.card-light h3 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-light h4 {
+    color: var(--primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 1rem 0;
+}
+
+.card-light p {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Card avec highlight (mise en avant) */
+.card-highlight {
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    border: 3px solid var(--secondary);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(255, 212, 102, 0.3);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.card-highlight:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(142, 33, 131, 0.2);
+}
+
+.card-highlight h4 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.card-highlight p {
+    color: var(--dark);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.card-highlight .has-small-font-size {
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.8;
+}
+
+/* Section grise améliorée */
+.section-grey {
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    padding: 60px 30px;
+    border-radius: 20px;
+    margin: 3rem 0;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* Styles pour les pages de formation gamifiées */
+.formation-gamified {
+    background: white;
+}
+
+.formation-gamified .entry-content {
+    max-width: 100%;
+    padding: 0;
+}
+
+/* Hero de formation avec dégradé */
+.formation-hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #6b1960 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.formation-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 212, 102, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Styles pour les listes dans les cards */
+.wp-block-column.card-style ul,
+.wp-block-column.card-light ul,
+.wp-block-column.card-highlight ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.wp-block-column.card-style ul li::before,
+.wp-block-column.card-highlight ul li::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: bold;
+    display: inline-block;
+    width: 1.5em;
+    margin-left: -1.5em;
+    padding-right: 0.5em;
+}
+
+/* Boutons personnalisés pour les formations */
+.wp-block-button.formation-cta .wp-block-button__link {
+    background: var(--secondary);
+    color: var(--primary);
+    border-radius: 30px;
+    padding: 18px 40px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 10px 30px rgba(255, 212, 102, 0.4);
+    transition: all 0.3s ease;
+}
+
+.wp-block-button.formation-cta .wp-block-button__link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 212, 102, 0.6);
+    background: var(--light);
+}
+
+/* Badge/Stat styles */
+.badge-container {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 5px 15px rgba(142, 33, 131, 0.3);
+    margin: 0.5rem;
+}
+
+/* Animations pour les cards */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-style,
+.card-light,
+.card-highlight {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Responsive pour les cards */
+@media (max-width: 768px) {
+    .card-style,
+    .card-light,
+    .card-highlight {
+        padding: 20px;
+        margin-bottom: 1rem;
+    }
+
+    .card-light h3 {
+        font-size: 2rem;
+    }
+
+    .section-grey {
+        padding: 40px 20px;
+        margin: 2rem 0;
+    }
+}
