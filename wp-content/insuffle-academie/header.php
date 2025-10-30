@@ -112,14 +112,14 @@ function toggleMobileMenu() {
 // Gestion du sous-menu mobile
 document.addEventListener('DOMContentLoaded', function() {
     const menuItems = document.querySelectorAll('.menu-item-has-children > a');
-    
+
     menuItems.forEach(function(item) {
         item.addEventListener('click', function(e) {
             if (window.innerWidth <= 992) {
                 e.preventDefault();
                 const parent = this.parentElement;
                 parent.classList.toggle('submenu-open');
-                
+
                 // Fermer les autres sous-menus
                 document.querySelectorAll('.menu-item-has-children').forEach(function(otherItem) {
                     if (otherItem !== parent) {
@@ -129,13 +129,32 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
+    // S'assurer que le bouton devis est présent
+    const menu = document.querySelector('.nav-menu');
+    if (menu) {
+        // Vérifier si un bouton CTA existe déjà
+        const hasCtaButton = menu.querySelector('.nav-cta');
+
+        if (!hasCtaButton) {
+            // Ajouter le bouton devis s'il n'existe pas
+            const li = document.createElement('li');
+            li.className = 'menu-item menu-item-cta';
+            const a = document.createElement('a');
+            a.href = '<?php echo esc_url(home_url('/#contact')); ?>';
+            a.className = 'nav-cta';
+            a.textContent = 'Demande de devis';
+            li.appendChild(a);
+            menu.appendChild(li);
+        }
+    }
+
     // Fermer le menu en cliquant en dehors
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-container')) {
             const toggle = document.querySelector('.mobile-menu-toggle');
             const menu = document.querySelector('.nav-menu');
-            
+
             if (toggle) toggle.classList.remove('active');
             if (menu) menu.classList.remove('active');
             document.body.classList.remove('menu-open');
